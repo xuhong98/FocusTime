@@ -22,7 +22,6 @@
         </activity>
         <activity android:name=".FocusModeActivity" />
         <activity android:name=".PunishmentActivity"></activity>
-
         <activity android:name=".EditorActivity"></activity>
 
         <provider
