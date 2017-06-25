@@ -11,21 +11,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="11dp">
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
-                android:layout_weight="1"
-                android:text="THIS IS A LITTLE PUNISHMENT."/>
+                android:paddingTop="0dp"
+                android:text="Your dream is further away from you!"
+                android:textAllCaps="true"
+                android:textSize="60sp" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="379dp"
-                android:paddingTop="100dp"
-                android:textSize="25sp"
-                android:text="Your dream is further away from you!"/>
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="THIS IS A LITTLE PUNISHMENT."
+                android:textSize="30sp" />
+
         </LinearLayout>
 
         <TextView
@@ -33,8 +41,9 @@
             android:layout_height="wrap_content"
             android:paddingBottom="8dp"
             android:textSize="18sp"
+            android:text="This music will not stop until finish playing."
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:text="This music will not stop until finish playing."/>
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
