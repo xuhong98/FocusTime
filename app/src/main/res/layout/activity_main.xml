@@ -1,34 +1,33 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.mango.focustime.MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="com.example.mango.focustime.MainActivity">
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Focus Mode"
-        android:paddingTop="50dp"
         android:layout_weight="1.61"
-        style="@style/Button"
         android:onClick="focusMode"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp" />
+        android:paddingTop="50dp"
+        android:text="Focus Mode"
+        android:textSize="60dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp" />
 
-<Button
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="To Do List"
-        android:paddingBottom="50dp"
         android:layout_weight="1.38"
-        style="@style/Button"
         android:onClick="toDoList"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp" />
-
+        android:paddingBottom="50dp"
+        android:text="To Do   List"
+        android:textSize="60dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp" />
 
 
 </LinearLayout>

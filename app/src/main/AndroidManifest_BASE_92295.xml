@@ -16,19 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ToDoActivity"
-            android:label="@string/app_name">
-        </activity>
         <activity android:name=".FocusModeActivity" />
+        <activity android:name=".ToDoActivity" />
+        <activity android:name=".AreYouSureCancel" />
+        <activity android:name=".Punishment" />
         <activity android:name=".PunishmentActivity"></activity>
-
-        <activity android:name=".EditorActivity"></activity>
-
-        <provider
-            android:name=".data.TodoProvider"
-            android:authorities="com.example.mango.focustime"
-            android:exported="false" />
     </application>
 
 </manifest>
