@@ -18,7 +18,6 @@
         </activity>
         <activity android:name=".FocusModeActivity" />
         <activity android:name=".ToDoActivity" />
-        <activity android:name=".AreYouSureCancel" />
         <activity android:name=".Punishment" />
         <activity android:name=".PunishmentActivity"></activity>
     </application>

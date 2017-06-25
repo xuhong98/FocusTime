@@ -1,10 +1,12 @@
 package com.example.mango.focustime;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -57,16 +59,34 @@ public class StartButtonListener implements View.OnClickListener{
 //            }
 
         } else {
-            timer.cancel();
-            mainText.setText("FocusMode cancelled.");
-            s.setText("start");
+//            timer.cancel();
+//            mainText.setText("FocusMode cancelled.");
+//            s.setText("start");
 
-            Intent i = new Intent(context, AreYouSureCancel.class);
-            activity.startActivity(i);
+            AlertDialog.Builder mBuilder = new AlertDialog.Builder(context);
+            View mView = activity.getLayoutInflater().inflate(R.layout.dialog_cancel,null);
+            final Button button_yes = (Button) mView.findViewById(R.id.button_Yes);
+            final Button button_no = (Button) mView.findViewById(R.id.button_No);
+
+            mBuilder.setView(mView);
+            AlertDialog dialog = mBuilder.create();
+            dialog.show();
+
+            button_yes.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, PunishmentActivity.class);
+                    context.startActivity(intent);
+                }
+            });
+
+            button_no.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){
+                    Intent intent = new Intent(context, FocusModeActivity.class);
+                    context.startActivity(intent);
+                }
+            });
         }
     }
-//
-//    public static boolean isForegroundPkgViaDetectionService(String packageName) {
-//        return packageName.equals(DetectionService.foregroundPackageName);
-//    }
 }

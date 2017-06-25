@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="26dp"
+    android:layout_marginRight="26dp"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Quit the FocusMode?"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:background="#96A5BC" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="You will be punished. Are you sure to quit? "
+        android:padding="16dp"
+        android:background="#B0BFD6"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:background="#B0BFD6">
+
+        <Button
+            android:id="@+id/button_Yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="46dp"
+            android:layout_marginRight="56dp"
+            android:text="Yes"/>
+
+        <Button
+            android:id="@+id/button_No"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No"/>
+
+    </LinearLayout>
+</LinearLayout>
