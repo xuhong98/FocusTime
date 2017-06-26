@@ -17,21 +17,22 @@
             android:layout_marginBottom="11dp">
 
             <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="0dp"
-                android:text="Your dream is further away from you!"
-                android:textAllCaps="true"
-                android:textSize="60sp" />
-
-            <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="THIS IS A LITTLE PUNISHMENT."
                 android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="0dp"
+                android:text="Your dream is further away from you!"
+                android:textAllCaps="true"
+                android:textSize="60sp"
+                android:layout_weight="2.93" />
 
         </LinearLayout>
 

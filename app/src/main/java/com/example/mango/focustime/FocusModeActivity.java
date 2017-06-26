@@ -1,13 +1,15 @@
 package com.example.mango.focustime;
 
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import static com.example.mango.focustime.R.id.second;
+//import static com.example.mango.focustime.R.id.second;
 
 public class FocusModeActivity extends AppCompatActivity {
 
@@ -21,11 +23,12 @@ public class FocusModeActivity extends AppCompatActivity {
         StartButtonListener listener = new StartButtonListener(FocusModeActivity.this, this);
         Button startButton = (Button) findViewById(R.id.start);
         startButton.setOnClickListener(listener);
+
     }
 
         private void display(int number) {
-            TextView quantityTextView = (TextView) findViewById(R.id.second);
-            quantityTextView.setText("" + number);
+//            TextView quantityTextView = (TextView) findViewById(R.id.second);
+//            quantityTextView.setText("" + number);
         }
 
         public void increment(View view) {
@@ -42,10 +45,6 @@ public class FocusModeActivity extends AppCompatActivity {
             }
         }
 
-        //return button
-        public void returnMain(View view) {
-            Intent i = new Intent(this, MainActivity.class);
-            startActivity(i);
-        }
+
 }
 

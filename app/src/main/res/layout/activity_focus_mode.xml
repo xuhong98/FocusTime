@@ -1,114 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context="com.example.mango.focustime.FocusModeActivity">
+    android:padding="20dp">
+
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:text="It's Focus Time!"
-            android:textSize="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:orientation="horizontal">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-
-            <!-- Label -->
-            <TextView
-                android:text="Duration"
-                android:textSize="20dp"
-                android:layout_height="match_parent"
-                android:layout_width="80dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:id="@+id/duration"/>
-
-
-            <!-- Name field -->
             <EditText
-                android:layout_width="30dp"
-                android:id="@+id/edit_title"
-                android:hint="Title"
-                android:layout_height="match_parent"
-                android:inputType="textCapWords"
-                android:layout_toRightOf="@+id/duration"/>
+                android:id="@+id/minute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Minute"
+                android:inputType="number"
+                android:textSize="40dp"
+                android:textColor="@drawable/edit_text_selector"/>
 
-            <!-- Description field -->
             <EditText
-                android:id="@+id/edit_description"
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:hint="Description"
-                android:inputType="textCapWords"
-                android:layout_toRightOf="@id/edit_title"/>
+                android:id="@+id/second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Second"
+                android:inputType="number"
+                android:textSize="40dp"
+                android:textColor="@drawable/edit_text_selector"/>
 
+        </LinearLayout>
 
-        </RelativeLayout>
-
-        <RelativeLayout
+        <Button
+            android:id="@+id/start"
             android:layout_width="match_parent"
-            android:layout_height="343dp">
-
-            <Button
-                android:id="@+id/start"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="16dp"
-                android:clickable="true"
-                android:text="start" />
-
-            <TextView
-                android:id="@+id/time_left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:textSize="20dp"
-                tools:text="seconds" />
-
-            <TextView
-                android:id="@+id/detection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/time_left"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:textSize="20dp"
-                tools:text="detection" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="17dp"
-                android:onClick="returnMain"
-                android:text="Return" />
-        </RelativeLayout>
-
-
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="start"
+            android:textColor="#ffff" />
     </LinearLayout>
 
+</RelativeLayout>
 
-</ScrollView>
