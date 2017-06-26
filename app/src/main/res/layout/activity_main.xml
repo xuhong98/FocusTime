@@ -24,7 +24,7 @@
         android:layout_weight="1.38"
         android:onClick="toDoList"
         android:paddingBottom="50dp"
-        android:text="To Do   List"
+        android:text="To Do List"
         android:textSize="60dp"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="0dp" />

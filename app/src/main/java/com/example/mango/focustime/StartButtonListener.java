@@ -28,9 +28,9 @@ public class StartButtonListener implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        final TextView s = (TextView) view;
+        final Button s = (Button) view;
         final TextView mainText = (TextView) activity.findViewById(R.id.time_left);
-        final TextView detection = (TextView) activity.findViewById(R.id.detection);
+//        final TextView detection = (TextView) activity.findViewById(R.id.detection);
 
         this.second= FocusModeActivity.second;
 
@@ -63,6 +63,7 @@ public class StartButtonListener implements View.OnClickListener{
 //            mainText.setText("FocusMode cancelled.");
 //            s.setText("start");
 
+            //dialog for cancel or not
             AlertDialog.Builder mBuilder = new AlertDialog.Builder(context);
             View mView = activity.getLayoutInflater().inflate(R.layout.dialog_cancel,null);
             final Button button_yes = (Button) mView.findViewById(R.id.button_Yes);
@@ -72,6 +73,7 @@ public class StartButtonListener implements View.OnClickListener{
             AlertDialog dialog = mBuilder.create();
             dialog.show();
 
+            //click yes and change to punishment
             button_yes.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
@@ -80,6 +82,7 @@ public class StartButtonListener implements View.OnClickListener{
                 }
             });
 
+            //click no and go back to focusModeActivity
             button_no.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
