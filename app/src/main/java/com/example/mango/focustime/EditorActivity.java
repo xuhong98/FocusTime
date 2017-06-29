@@ -33,6 +33,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -45,7 +46,7 @@ import com.example.mango.focustime.data.TodoContract.TodoEntry;
 public class EditorActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    /** Identifier for the pet data loader */
+    /** Identifier for the to_do data loader */
     private static final int EXISTING_TODO_LOADER = 0;
 
     /** EditText field to enter the title */
@@ -54,7 +55,10 @@ public class EditorActivity extends AppCompatActivity implements
     /** EditText field to enter the description */
     private EditText mDesEditText;
 
-    /** Content URI for the existing pet (null if it's a new pet) */
+    /** CheckBox field to check done */
+    private CheckBox mCheckBox;
+
+    /** Content URI for the existing to_do (null if it's a new to_do) */
     private Uri mCurrentPetUri;
 
     @Override
@@ -70,6 +74,7 @@ public class EditorActivity extends AppCompatActivity implements
         // Find all relevant views that we will need to read user input from
         mTitleEditText = (EditText) findViewById(R.id.edit_title);
         mDesEditText = (EditText) findViewById(R.id.edit_description);
+        mCheckBox = (CheckBox) findViewById(R.id.checkbox);
 
         // If the intent DOES NOT contain a pet content URI, then we know that we are
         // creating a new pet.
@@ -106,6 +111,7 @@ public class EditorActivity extends AppCompatActivity implements
         ContentValues values = new ContentValues();
         values.put(TodoEntry.COLUMN_TITLE, nameString);
         values.put(TodoEntry.COLUMN_DESCRIPTION, breedString);
+        values.put(TodoEntry.COLUMN_DONE, TodoEntry.UNCHECKED);
 
         // Insert a new pet into the provider, returning the content URI for the new pet.
         Uri newUri = getContentResolver().insert(TodoEntry.CONTENT_URI, values);
@@ -180,6 +186,9 @@ public class EditorActivity extends AppCompatActivity implements
         if (mCurrentPetUri == null) {
             // This is a NEW pet, so insert a new pet into the provider,
             // returning the content URI for the new pet.
+
+            values.put(TodoEntry.COLUMN_DONE, TodoEntry.UNCHECKED);
+
             Uri newUri = getContentResolver().insert(TodoEntry.CONTENT_URI, values);
 
             // Show a toast message depending on whether or not the insertion was successful.
@@ -219,7 +228,8 @@ public class EditorActivity extends AppCompatActivity implements
         String[] projection = {
                 TodoEntry._ID,
                 TodoEntry.COLUMN_TITLE,
-                TodoEntry.COLUMN_DESCRIPTION,};
+                TodoEntry.COLUMN_DESCRIPTION,
+                TodoEntry.COLUMN_DONE};
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
@@ -243,15 +253,21 @@ public class EditorActivity extends AppCompatActivity implements
             // Find the columns of pet attributes that we're interested in
             int titleColumnIndex = cursor.getColumnIndex(TodoEntry.COLUMN_TITLE);
             int descriptionColumnIndex = cursor.getColumnIndex(TodoEntry.COLUMN_DESCRIPTION);
+            int checkColumnIndex = cursor.getColumnIndex(TodoEntry.COLUMN_DONE);
 
             // Extract out the value from the Cursor for the given column index
             String title = cursor.getString(titleColumnIndex);
             String description = cursor.getString(descriptionColumnIndex);
+            String check = cursor.getString(checkColumnIndex);
 
             // Update the views on the screen with the values from the database
             mTitleEditText.setText(title);
             mDesEditText.setText(description);
-
+            if (check.equals(TodoEntry.CHECKED)) {
+                mCheckBox.setChecked(true);
+            } else {
+                mCheckBox.setChecked(false);
+            }
         }
     }
 
@@ -260,6 +276,7 @@ public class EditorActivity extends AppCompatActivity implements
         // If the loader is invalidated, clear out all the data from the input fields.
         mTitleEditText.setText("");
         mDesEditText.setText("");
+        mCheckBox.setChecked(false);
     }
 
     /**

@@ -26,25 +26,6 @@ public class FocusModeActivity extends AppCompatActivity {
 
     }
 
-        private void display(int number) {
-//            TextView quantityTextView = (TextView) findViewById(R.id.second);
-//            quantityTextView.setText("" + number);
-        }
-
-        public void increment(View view) {
-            if (second < 1000) {
-                second = second + 5;
-                display(second);
-            }
-        }
-
-        public void decrement(View view) {
-            if (second > 0) {
-                second = second - 5;
-                display(second);
-            }
-        }
-
 
 }
 

@@ -54,7 +54,8 @@ public class TodoDbHelper extends SQLiteOpenHelper {
         String SQL_CREATE_PETS_TABLE =  "CREATE TABLE " + TodoEntry.TABLE_NAME + " ("
                 + TodoEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + TodoEntry.COLUMN_TITLE + " TEXT NOT NULL, "
-                + TodoEntry.COLUMN_DESCRIPTION + " TEXT)" + ";";
+                + TodoEntry.COLUMN_DESCRIPTION + " TEXT, " +
+                TodoEntry.COLUMN_DONE + ")" + ";";
 
         // Execute the SQL statement
         db.execSQL(SQL_CREATE_PETS_TABLE);

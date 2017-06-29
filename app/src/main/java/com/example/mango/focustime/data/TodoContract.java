@@ -58,13 +58,13 @@ public final class TodoContract {
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_FOCUSTIME);
 
         /**
-         * The MIME type of the {@link #CONTENT_URI} for a list of pets.
+         * The MIME type of the {@link #CONTENT_URI} for a list of to_dos.
          */
         public static final String CONTENT_LIST_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_FOCUSTIME;
 
         /**
-         * The MIME type of the {@link #CONTENT_URI} for a single pet.
+         * The MIME type of the {@link #CONTENT_URI} for a single to_do.
          */
         public static final String CONTENT_ITEM_TYPE =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_FOCUSTIME;
@@ -77,6 +77,12 @@ public final class TodoContract {
         public final static String COLUMN_TITLE ="title";
 
         public final static String COLUMN_DESCRIPTION = "description";
+
+        public final static String COLUMN_DONE = "done";
+
+        public final static String UNCHECKED = "unchecked";
+
+        public final static String CHECKED = "checked";
 
 
     }

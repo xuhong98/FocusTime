@@ -3,6 +3,7 @@ package com.example.mango.focustime;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -60,7 +61,7 @@ public class StartButtonListener implements View.OnClickListener{
                     totalSecond = Integer.parseInt(minute.getText().toString()) * 60;
                 }
             } else {
-                if (Integer.parseInt(minute.getText().toString()) < 0 || Integer.parseInt(second.getText().toString()) <0) {
+                if (Integer.parseInt(minute.getText().toString()) <= 0 || Integer.parseInt(second.getText().toString()) <= 0) {
                     Toast.makeText(context, "Invalid number", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
@@ -86,8 +87,6 @@ public class StartButtonListener implements View.OnClickListener{
 
                     minute.setEnabled(true);
                     minute.setClickable(true);
-
-
                     second.setEnabled(true);
                     second.setClickable(true);
 
@@ -116,34 +115,30 @@ public class StartButtonListener implements View.OnClickListener{
             Toast.makeText(context, "Focus mode started!", Toast.LENGTH_LONG).show();
 
         } else {
-//            timer.cancel();
-//            mainText.setText("FocusMode cancelled.");
-//            s.setText("start");
-
-            AlertDialog.Builder mBuilder = new AlertDialog.Builder(context);
-            View mView = activity.getLayoutInflater().inflate(R.layout.dialog_cancel,null);
-            final Button button_yes = (Button) mView.findViewById(R.id.button_Yes);
-            final Button button_no = (Button) mView.findViewById(R.id.button_No);
-
-            mBuilder.setView(mView);
-            AlertDialog dialog = mBuilder.create();
-            dialog.show();
-
-            button_yes.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View view) {
+            // Create an AlertDialog.Builder and set the message, and click listeners
+            // for the postivie and negative buttons on the dialog.
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Quit focus mode?");
+            builder.setMessage("You will be punished. Are you sure to quit?");
+            builder.setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
                     Intent intent = new Intent(context, PunishmentActivity.class);
                     context.startActivity(intent);
                 }
             });
-
-            button_no.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View view){
-                    Intent intent = new Intent(context, FocusModeActivity.class);
-                    context.startActivity(intent);
+            builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // User clicked the "Cancel" button, so dismiss the dialog
+                    // and continue editing the pet.
+                    if (dialog != null) {
+                        dialog.dismiss();
+                    }
                 }
             });
+
+            // Create and show the AlertDialog
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
         }
     }
 }

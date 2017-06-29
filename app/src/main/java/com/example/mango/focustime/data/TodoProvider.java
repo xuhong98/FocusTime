@@ -37,10 +37,10 @@ public class TodoProvider extends ContentProvider {
     /** Tag for the log messages */
     public static final String LOG_TAG = TodoProvider.class.getSimpleName();
 
-    /** URI matcher code for the content URI for the pets table */
+    /** URI matcher code for the content URI for the table */
     private static final int TODOS = 100;
 
-    /** URI matcher code for the content URI for a single pet in the pets table */
+    /** URI matcher code for the content URI for a single item in the pets table */
     private static final int TODO_ID = 101;
 
     /**
@@ -58,7 +58,7 @@ public class TodoProvider extends ContentProvider {
 
         // The content URI of the form "content://com.example.android.pets/pets" will map to the
         // integer code {@link #PETS}. This URI is used to provide access to MULTIPLE rows
-        // of the pets table.
+        // of the table.
         sUriMatcher.addURI(TodoContract.CONTENT_AUTHORITY, TodoContract.PATH_FOCUSTIME, TODOS);
 
         // The content URI of the form "content://com.example.android.pets/pets/#" will map to the
