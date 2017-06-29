@@ -12,10 +12,14 @@ import static com.example.mango.focustime.R.id.second;
 public class FocusModeActivity extends AppCompatActivity {
 
     public static int second = 10;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_focus_mode);
+
+        //everytime change to this activity, set second equal 10
+        second = 10;
 
         //start count down timer
         StartButtonListener listener = new StartButtonListener(FocusModeActivity.this, this);
