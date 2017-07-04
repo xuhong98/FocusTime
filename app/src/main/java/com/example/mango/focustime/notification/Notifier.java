@@ -77,7 +77,7 @@ public class Notifier {
             String currentPackageName = cn.getPackageName();
             return !TextUtils.isEmpty(currentPackageName) && currentPackageName.equals(context.getPackageName());
         } else {
-            return BackgroundUtil.isForeground(context, BackgroundUtil.BKGMETHOD_GETAPPLICATION_VALUE, context.getPackageName());
+            return BackgroundUtil.isForeground(context, 5, context.getPackageName());
         }
     }
 

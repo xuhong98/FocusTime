@@ -79,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         Features.showForeground = false;
-        Intent intent = new Intent(mContext, MyService.class);
-        mContext.stopService(intent);
+//        Intent intent = new Intent(mContext, MyService.class);
+//        mContext.stopService(intent);
     }
 
     private void initCheckBox() {
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                     startService();
                     deselectAll();
                     checkBox6.setChecked(true);
-                    Features.BGK_METHOD = BackgroundUtil.BKGMETHOD_VIA_DETECTION_SERVICE;
+                    Features.BGK_METHOD = 5;
 
                 }
             }

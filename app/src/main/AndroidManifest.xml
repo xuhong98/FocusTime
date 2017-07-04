@@ -51,8 +51,10 @@
         <service android:name="com.example.mango.focustime.service.MyService" />
 
         <receiver android:name="com.example.mango.focustime.receiver.MyReceiver" />
+
+
     </application>
 
-
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
 
 </manifest>

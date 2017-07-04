@@ -52,4 +52,8 @@ public class DetectionService extends AccessibilityService {
     protected  void onServiceConnected() {
         super.onServiceConnected();
     }
+
+    public static String getForegroundPackageName() {
+        return foregroundPackageName;
+    }
 }
