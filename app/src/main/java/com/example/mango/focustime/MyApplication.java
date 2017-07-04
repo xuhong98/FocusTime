@@ -1,11 +1,14 @@
 package com.example.mango.focustime;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -57,12 +60,12 @@ public class MyApplication extends Application {
             });
 
             // Create and show the AlertDialog
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
-
-            Intent intent = StartButtonListener.getIntent();
-
-            onReceive(context, intent);
+//            AlertDialog alertDialog = builder.create();
+//            alertDialog.show();
+//
+//            Intent intent = StartButtonListener.getIntent();
+//
+//            onReceive(context, intent);
         }
     }
 
@@ -100,4 +103,57 @@ public class MyApplication extends Application {
 
 
     private static boolean activityVisible;
+
+    private int appCount = 0;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                Log.d("wenming", "onActivityCreated");
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity) {
+                Log.d("wenming", "onActivityStarted");
+                appCount++;
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+                Log.d("wenming", "onActivityResumed");
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+                Log.d("wenming", "onActivityPaused");
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+                Log.d("wenming", "onActivityStopped");
+                appCount--;
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+                Log.d("wenming", "onActivitySaveInstanceState");
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+                Log.d("wenming", "onActivityDestroyed");
+            }
+        });
+    }
+
+    public int getAppCount() {
+        return appCount;
+    }
+
+    public void setAppCount(int appCount) {
+        this.appCount = appCount;
+    }
 }
