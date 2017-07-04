@@ -21,9 +21,10 @@ import static com.example.mango.focustime.R.id.minute;
 
 public class StartButtonListener implements View.OnClickListener{
 
-    private Context context;
-    private Activity activity;
-    private CountDownTimer timer;
+    protected static Context context;
+    protected static Activity activity;
+    protected static CountDownTimer timer;
+    private static boolean timerStarted;
 
 
     public StartButtonListener(Context context, Activity activity){
@@ -83,6 +84,7 @@ public class StartButtonListener implements View.OnClickListener{
                 public void onFinish() {
                     second.setText("0 sec");
                     Toast.makeText(context, "Focus mode ended! Relax for a while!", Toast.LENGTH_LONG).show();
+                    timerStarted = false;
                     s.setText("start");
 
                     minute.setEnabled(true);
@@ -96,6 +98,7 @@ public class StartButtonListener implements View.OnClickListener{
             };
 
             timer.start();
+            timerStarted = true;
 
             s.setText("cancel");
 
@@ -122,6 +125,8 @@ public class StartButtonListener implements View.OnClickListener{
             builder.setMessage("You will be punished. Are you sure to quit?");
             builder.setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
+                    timer.cancel();
+                    s.setText("start");
                     Intent intent = new Intent(context, PunishmentActivity.class);
                     context.startActivity(intent);
                 }
@@ -141,4 +146,9 @@ public class StartButtonListener implements View.OnClickListener{
             alertDialog.show();
         }
     }
+
+    public static boolean FocusModeStarted() {
+        return timerStarted;
+    }
+
 }

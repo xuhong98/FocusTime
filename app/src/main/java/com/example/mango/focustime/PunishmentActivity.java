@@ -4,9 +4,10 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 public class PunishmentActivity extends AppCompatActivity {
-    private MediaPlayer mp=new MediaPlayer();
+    private MediaPlayer mp = new MediaPlayer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,4 +26,10 @@ public class PunishmentActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(getApplicationContext(), " You cannot go back. ", Toast.LENGTH_SHORT).show();
     }
+
+}
