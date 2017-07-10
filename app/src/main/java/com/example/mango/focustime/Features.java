@@ -6,5 +6,4 @@ package com.example.mango.focustime;
 public class Features {
     public static int BGK_METHOD = 5;
     public static boolean showForeground = false;
-    public static boolean showProfile = true;
 }

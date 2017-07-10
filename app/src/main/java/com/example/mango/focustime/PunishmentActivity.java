@@ -6,6 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.mango.focustime.service.MyService;
+
+import static com.example.mango.focustime.StartButtonListener.context;
+
 public class PunishmentActivity extends AppCompatActivity {
     private MediaPlayer mp = new MediaPlayer();
 
@@ -13,8 +17,13 @@ public class PunishmentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_punishment);
-        MediaPlayer mp = MediaPlayer.create(this, R.raw.gnstyle);
+        MediaPlayer mp = MediaPlayer.create(this, R.raw.apple_pan_short);
         mp.start();
+
+        // Stop detection service
+        Features.showForeground = false;
+        Intent i = new Intent(context, MyService.class);
+        context.stopService(i);
 
         //finish playing music and go back to mainActivity
         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -29,7 +38,7 @@ public class PunishmentActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Toast.makeText(getApplicationContext(), " You cannot go back. ", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), " You cannot stop the music. Enjoy the punishment.", Toast.LENGTH_SHORT).show();
     }
 
 }

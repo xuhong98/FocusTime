@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.IBinder;
@@ -16,13 +17,15 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.example.mango.focustime.DetectionService;
+import com.example.mango.focustime.FocusModeActivity;
 import com.example.mango.focustime.R;
 import com.example.mango.focustime.Features;
-import com.example.mango.focustime.MainActivity;
+import com.example.mango.focustime.StartButtonListener;
 import com.example.mango.focustime.receiver.MyReceiver;
 import com.example.mango.focustime.BackgroundUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by wenmingvs on 2016/1/13.
@@ -32,7 +35,6 @@ public class MyService extends Service {
     private static final float UPDATA_INTERVAL = 0.5f;//in seconds
     private String status;
     private Context mContext;
-    private ArrayList<String> mContentList;
     private Notification notification;
     private AlarmManager manager;
     private PendingIntent pendingIntent;
@@ -57,10 +59,8 @@ public class MyService extends Service {
         Log.d("MyService", "Service onCreate()");
         mContext = this;
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        initContentData();
         startNotification();
         setUsableApps();
-        mPackageManager = (PackageManager) mContext.getPackageManager();
     }
 
     @Override
@@ -92,18 +92,8 @@ public class MyService extends Service {
     public void onDestroy() {
         Features.showForeground = false;
         stopForeground(true);
-        Log.d("wenming", "Service的onDestroy方法调用");
+        Log.d("wenming", "Service onDestroy() method call");
         super.onDestroy();
-    }
-
-    private void initContentData() {
-        mContentList = new ArrayList<String>();
-        mContentList.add("通过getRunningTask判断");
-        mContentList.add("通过getRunningAppProcess判断");
-        mContentList.add("通过ActivityLifecycleCallbacks判断");
-        mContentList.add("通过UsageStatsManager判断");
-        mContentList.add("通过LinuxCoreInfo判断");
-        mContentList.add(getString(R.string.content6));
     }
 
     private boolean getAppStatus() {
@@ -111,13 +101,11 @@ public class MyService extends Service {
     }
 
     private void startNotification() {
-        status = getAppStatus() ? "前台" : "后台";
-        mIntent = new Intent(mContext, MainActivity.class);
+        mIntent = new Intent(mContext, FocusModeActivity.class);
         pendingIntent = PendingIntent.getActivity(mContext, 0, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder = new NotificationCompat.Builder(mContext)
                 .setSmallIcon(R.drawable.icon)
-                .setContentText(mContentList.get(Features.BGK_METHOD))
-                .setContentTitle("App处于" + status + ": " + DetectionService.getForegroundPackageName())
+                .setContentTitle("App处于" + ": " + DetectionService.getForegroundPackageName())
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
         notification = mBuilder.build();
@@ -125,9 +113,8 @@ public class MyService extends Service {
     }
 
     private void updateNotification() {
-        status = getAppStatus() ? "前台" : "后台";
-        mBuilder.setContentTitle("App处于" + status + ": " + DetectionService.getForegroundPackageName());
-        mBuilder.setContentText(mContentList.get(Features.BGK_METHOD));
+        mBuilder.setContentTitle("App处于" + ": " + DetectionService.getForegroundPackageName());
+        mBuilder.setContentText("...");
         notification = mBuilder.build();
         mNotificationManager.notify(NOTICATION_ID, notification);
     }
@@ -149,27 +136,13 @@ public class MyService extends Service {
         return true;
     }
 
-    private boolean isSystemApp(String packageName) {
-        try {
-            // Get packageinfo for target application
-            PackageInfo targetPkgInfo = mPackageManager.getPackageInfo(
-                    packageName, PackageManager.GET_SIGNATURES);
-            // Get packageinfo for system package
-            PackageInfo sys = mPackageManager.getPackageInfo(
-                    "android", PackageManager.GET_SIGNATURES);
-            // Match both packageinfo for there signatures
-            return (targetPkgInfo != null && targetPkgInfo.signatures != null && sys.signatures[0]
-                    .equals(targetPkgInfo.signatures[0]));
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
-    }
+
 
     private void killApps() {
         ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         String currentForegroundPackageName = DetectionService.getForegroundPackageName();
 
-        if(currentForegroundPackageName != null && !isSystemApp(currentForegroundPackageName) && isKillableApp(currentForegroundPackageName)) {
+        if(currentForegroundPackageName != null && isKillableApp(currentForegroundPackageName)) {
 
             Log.v("MyService", "Killing " + currentForegroundPackageName);
 

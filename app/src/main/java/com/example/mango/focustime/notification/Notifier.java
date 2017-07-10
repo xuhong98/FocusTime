@@ -22,8 +22,8 @@ import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
-import com.example.mango.focustime.MainActivity;
 import com.example.mango.focustime.BackgroundUtil;
+import com.example.mango.focustime.FocusModeActivity;
 
 import java.util.HashSet;
 import java.util.List;
@@ -136,7 +136,7 @@ public class Notifier {
 
     private boolean isMainActivityAtTop(Context context) {
         ComponentName topActivity = getTopActivity(context);
-        if (topActivity.compareTo(new ComponentName(context, MainActivity.class)) == 0) {
+        if (topActivity.compareTo(new ComponentName(context, FocusModeActivity.class)) == 0) {
             return true;
         }
         return false;
@@ -144,7 +144,7 @@ public class Notifier {
 
     private boolean isChatActivityAtTop(Context context) {
         ComponentName topActivity = getTopActivity(context);
-        if (topActivity.compareTo(new ComponentName(context, MainActivity.class)) == 0) {
+        if (topActivity.compareTo(new ComponentName(context, FocusModeActivity.class)) == 0) {
             return true;
         }
         return false;

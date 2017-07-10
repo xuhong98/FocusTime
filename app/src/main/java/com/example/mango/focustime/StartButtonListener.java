@@ -12,8 +12,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.example.mango.focustime.FocusModeActivity.second;
+import com.example.mango.focustime.service.MyService;
+
 import static com.example.mango.focustime.R.id.minute;
+import static com.example.mango.focustime.R.id.second;
 
 /**
  * Created by chenxiaoman on 23/6/17.
@@ -23,24 +25,28 @@ public class StartButtonListener implements View.OnClickListener{
 
     protected static Context context;
     protected static Activity activity;
-    protected static CountDownTimer timer;
+    public static CountDownTimer timer;
     private static boolean timerStarted;
+
+    private final EditText second;
+    private final EditText minute;
+    private final Button s;
 
 
     public StartButtonListener(Context context, Activity activity){
-        this.context=context;
-        this.activity=activity;
+        this.context = context;
+        this.activity = activity;
+
+        second = (EditText) activity.findViewById(R.id.second);
+        minute = (EditText) activity.findViewById(R.id.minute);
+        s = (Button) activity.findViewById(R.id.start);
     }
 
     @Override
     public void onClick(View view) {
 
-
-        final TextView s = (TextView) view;
-
         if (s.getText().equals("start")) {
-            final EditText second = (EditText) activity.findViewById(R.id.second);
-            final EditText minute = (EditText) activity.findViewById(R.id.minute);
+
 
             int totalSecond = 0;
 
@@ -82,23 +88,20 @@ public class StartButtonListener implements View.OnClickListener{
                 }
 
                 public void onFinish() {
-                    second.setText("0 sec");
                     Toast.makeText(context, "Focus mode ended! Relax for a while!", Toast.LENGTH_LONG).show();
-                    timerStarted = false;
-                    s.setText("start");
-
-                    minute.setEnabled(true);
-                    minute.setClickable(true);
-                    second.setEnabled(true);
-                    second.setClickable(true);
-
-                    minute.setText("");
-                    second.setText("");
+                    clearTimer();
                 }
             };
 
             timer.start();
             timerStarted = true;
+
+
+            // Start detection service
+            Features.showForeground = true;
+            Intent intent = new Intent(context, MyService.class);
+            startService();
+
 
             s.setText("cancel");
 
@@ -109,12 +112,6 @@ public class StartButtonListener implements View.OnClickListener{
             second.setEnabled(false);
             second.setClickable(false);
 
-
-//            if (isForegroundPkgViaDetectionService("com.example.chenxiaomanxuhong.focustime")) {
-//                detection.setText("The app is foreground now.");
-//            } else {
-//                detection.setText(DetectionService.foregroundPackageName);
-//            }
             Toast.makeText(context, "Focus mode started!", Toast.LENGTH_LONG).show();
 
         } else {
@@ -125,10 +122,7 @@ public class StartButtonListener implements View.OnClickListener{
             builder.setMessage("You will be punished. Are you sure to quit?");
             builder.setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    timer.cancel();
-                    s.setText("start");
-                    Intent intent = new Intent(context, PunishmentActivity.class);
-                    context.startActivity(intent);
+                    clearTimer();
                 }
             });
             builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
@@ -149,6 +143,36 @@ public class StartButtonListener implements View.OnClickListener{
 
     public static boolean FocusModeStarted() {
         return timerStarted;
+    }
+
+    private void startService() {
+        Features.showForeground = true;
+        Intent intent = new Intent(context, MyService.class);
+        context.startService(intent);
+    }
+
+    private void clearTimer() {
+        timer.cancel();
+
+        timerStarted = false;
+        s.setText("start");
+
+        minute.setEnabled(true);
+        minute.setClickable(true);
+        second.setEnabled(true);
+        second.setClickable(true);
+
+        minute.setText("");
+        second.setText("");
+
+        // Stop detection service
+        Features.showForeground = false;
+        Intent i = new Intent(context, MyService.class);
+        context.stopService(i);
+
+        s.setText("start");
+        Intent intent = new Intent(context, PunishmentActivity.class);
+        context.startActivity(intent);
     }
 
 }
