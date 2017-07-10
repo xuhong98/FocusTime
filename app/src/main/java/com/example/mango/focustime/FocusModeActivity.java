@@ -4,11 +4,14 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +19,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mango.focustime.service.MyService;
 
+import static com.example.mango.focustime.StartButtonListener.activity;
 import static com.example.mango.focustime.StartButtonListener.context;
 import static com.example.mango.focustime.StartButtonListener.timer;
 
@@ -52,6 +57,25 @@ public class FocusModeActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu options from the res/menu/menu_catalog.xml file.
+        // This adds menu items to the app bar.
+        getMenuInflater().inflate(R.menu.menu_focustime, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // User clicked on a menu option in the app bar overflow menu
+        switch (item.getItemId()) {
+            case R.id.how_to_use:
+                Intent intent = new Intent(FocusModeActivity.this, HowToUseActivity.class);
+                startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    @Override
     protected void onPause() {
         super.onPause();
         MyApplication.activityPaused();
@@ -64,8 +88,6 @@ public class FocusModeActivity extends AppCompatActivity {
         Intent intent = new Intent(mContext, MyService.class);
         mContext.stopService(intent);
     }
-
-
 
 
 }

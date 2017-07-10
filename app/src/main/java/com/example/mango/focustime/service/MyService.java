@@ -32,8 +32,7 @@ import java.util.List;
  */
 public class MyService extends Service {
 
-    private static final float UPDATA_INTERVAL = 0.5f;//in seconds
-    private String status;
+    private static final float UPDATA_INTERVAL = 0.1f;//in seconds
     private Context mContext;
     private Notification notification;
     private AlarmManager manager;
@@ -123,6 +122,7 @@ public class MyService extends Service {
         usableApps.add("com.android.systemui");
         usableApps.add("com.android.launcher3");
         usableApps.add("com.android.dialer");
+        usableApps.add("com.android.settings");
     }
 
     private boolean isKillableApp(String name) {

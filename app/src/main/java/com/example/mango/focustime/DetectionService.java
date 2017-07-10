@@ -34,13 +34,6 @@ public class DetectionService extends AccessibilityService {
              * 如果在不同进程，可以利用 Intent 或 bind service 进行通信
              */
             foregroundPackageName = event.getPackageName().toString();
-
-            /*
-             * 基于以下还可以做很多事情，比如判断当前界面是否是 Activity，是否系统应用等，
-             * 与主题无关就不再展开。
-             */
-            //ComponentName cName = new ComponentName(event.getPackageName().toString(),
-            //event.getClassName().toString());
         }
     }
 

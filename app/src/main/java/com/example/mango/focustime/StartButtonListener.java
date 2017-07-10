@@ -2,10 +2,15 @@ package com.example.mango.focustime;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.CountDownTimer;
+import android.provider.Settings;
+import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.mango.focustime.service.MyService;
 
+import static android.content.ContentValues.TAG;
 import static com.example.mango.focustime.R.id.minute;
 import static com.example.mango.focustime.R.id.second;
 
@@ -31,11 +37,16 @@ public class StartButtonListener implements View.OnClickListener{
     private final EditText second;
     private final EditText minute;
     private final Button s;
+    private Intent intent;
+    private Notification notification;
+    private NotificationCompat.Builder mBuilder;
+    private PendingIntent pendingIntent;
 
 
     public StartButtonListener(Context context, Activity activity){
         this.context = context;
         this.activity = activity;
+        this.intent = activity.getIntent();
 
         second = (EditText) activity.findViewById(R.id.second);
         minute = (EditText) activity.findViewById(R.id.minute);
@@ -85,6 +96,15 @@ public class StartButtonListener implements View.OnClickListener{
 
                     minute.setText("" + m + " min");
                     second.setText("" + s + " sec");
+
+                    pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                    mBuilder = new NotificationCompat.Builder(context)
+                            .setSmallIcon(R.drawable.icon)
+                            .setContentTitle("Time left" + ": " + m + " min " + s + " sec")
+                            .setAutoCancel(true)
+                            .setContentIntent(pendingIntent);
+                    notification = mBuilder.build();
                 }
 
                 public void onFinish() {
@@ -92,6 +112,8 @@ public class StartButtonListener implements View.OnClickListener{
                     clearTimer();
                 }
             };
+
+            openAccessibilityService();
 
             timer.start();
             timerStarted = true;
@@ -123,6 +145,9 @@ public class StartButtonListener implements View.OnClickListener{
             builder.setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     clearTimer();
+
+                    Intent intent = new Intent(context, PunishmentActivity.class);
+                    context.startActivity(intent);
                 }
             });
             builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
@@ -171,8 +196,40 @@ public class StartButtonListener implements View.OnClickListener{
         context.stopService(i);
 
         s.setText("start");
-        Intent intent = new Intent(context, PunishmentActivity.class);
-        context.startActivity(intent);
+    }
+
+    final static String TAG = "AccessibilityUtil";
+    // 此方法用来判断当前应用的辅助功能服务是否开启
+    public static boolean isAccessibilitySettingsOn(Context context) {
+        int accessibilityEnabled = 0;
+        try {
+            accessibilityEnabled = Settings.Secure.getInt(context.getContentResolver(),
+                    android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
+        } catch (Settings.SettingNotFoundException e) {
+            Log.i(TAG, e.getMessage());
+        }
+
+        if (accessibilityEnabled == 1) {
+            String services = Settings.Secure.getString(context.getContentResolver(),
+                    Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
+            if (services != null) {
+                return services.toLowerCase().contains(context.getPackageName().toLowerCase());
+            }
+        }
+
+        return false;
+    }
+
+    private void openAccessibilityService() {
+        // 判断辅助功能是否开启
+        if (!isAccessibilitySettingsOn(context)) {
+            // 引导至辅助功能设置页面
+            activity.startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+
+            Toast.makeText(context, "Please turn on FocusTime accessibility service", Toast.LENGTH_LONG).show();
+        } else {
+            // 执行辅助功能服务相关操作
+        }
     }
 
 }

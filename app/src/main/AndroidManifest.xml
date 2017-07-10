@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mango.focustime">
 
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,12 +20,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PunishmentActivity"></activity>
+        <activity android:name=".PunishmentActivity" />
         <activity
             android:name=".ToDoActivity"
             android:label="Todo List"
-            android:parentActivityName="com.example.mango.focustime.FocusModeActivity"></activity>
-        <activity android:name=".EditorActivity"></activity>
+            android:parentActivityName=".FocusModeActivity" />
+        <activity android:name=".EditorActivity" />
+        <activity android:name=".HowToUseActivity"
+            android:label="How to use?"
+            android:parentActivityName=".FocusModeActivity"/>
 
         <provider
             android:name=".data.TodoProvider"
@@ -31,29 +36,24 @@
             android:exported="false" />
 
         <application
-            android:name="com.example.mango.focustime.MyApplication"
+            android:name=".MyApplication"
             android:icon="@drawable/icon"
             android:label="@string/app_name" />
 
         <service
-            android:name="com.example.mango.focustime.DetectionService"
+            android:name=".DetectionService"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
-
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
+
             <meta-data
                 android:name="android.accessibilityservice"
                 android:resource="@xml/detection_service_config" />
         </service>
+        <service android:name=".service.MyService" />
 
-        <service android:name="com.example.mango.focustime.service.MyService" />
-
-        <receiver android:name="com.example.mango.focustime.receiver.MyReceiver" />
-
-
+        <receiver android:name=".receiver.MyReceiver" />
     </application>
-
-    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
 
 </manifest>
