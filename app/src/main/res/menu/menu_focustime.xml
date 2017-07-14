@@ -20,4 +20,5 @@
         android:id="@+id/how_to_use"
         android:title="How to use?"
         app:showAsAction="never" />
+
 </menu>

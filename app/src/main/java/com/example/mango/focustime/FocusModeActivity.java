@@ -21,6 +21,8 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mango.focustime.lineartimer.LinearTimer;
+import com.example.mango.focustime.lineartimer.LinearTimerView;
 import com.example.mango.focustime.service.MyService;
 
 import static com.example.mango.focustime.StartButtonListener.activity;
@@ -29,9 +31,11 @@ import static com.example.mango.focustime.StartButtonListener.timer;
 
 //import static com.example.mango.focustime.R.id.second;
 
-public class FocusModeActivity extends AppCompatActivity {
+public class FocusModeActivity extends AppCompatActivity implements LinearTimer.TimerListener{
 
     private Context mContext;
+    private LinearTimerView linearTimerView;
+    private LinearTimer linearTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +53,21 @@ public class FocusModeActivity extends AppCompatActivity {
             }
         });
 
+
+
+        linearTimerView = (LinearTimerView) findViewById(R.id.linearTimer);
+
+        linearTimer = new LinearTimer.Builder()
+                .linearTimerView(linearTimerView)
+                .timerListener(this)
+                .duration(10 * 1000)
+                .getCountUpdate(LinearTimer.COUNT_DOWN_TIMER, 1000)
+                .build();
+
         //start count down timer
-        StartButtonListener listener = new StartButtonListener(FocusModeActivity.this, this);
+        StartButtonListener listener = new StartButtonListener(FocusModeActivity.this, this, linearTimer);
         Button startButton = (Button) findViewById(R.id.start);
         startButton.setOnClickListener(listener);
-
     }
 
     @Override
@@ -90,5 +104,19 @@ public class FocusModeActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void animationComplete() {
+
+    }
+
+    @Override
+    public void timerTick(long tickUpdateInMillis) {
+
+    }
+
+    @Override
+    public void onTimerReset() {
+
+    }
 }
 

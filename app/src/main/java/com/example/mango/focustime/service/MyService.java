@@ -6,10 +6,10 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.os.SystemClock;
@@ -20,12 +20,10 @@ import com.example.mango.focustime.DetectionService;
 import com.example.mango.focustime.FocusModeActivity;
 import com.example.mango.focustime.R;
 import com.example.mango.focustime.Features;
-import com.example.mango.focustime.StartButtonListener;
 import com.example.mango.focustime.receiver.MyReceiver;
 import com.example.mango.focustime.BackgroundUtil;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by wenmingvs on 2016/1/13.
@@ -41,6 +39,7 @@ public class MyService extends Service {
     private Intent mIntent;
     private NotificationManager mNotificationManager;
     private static final int NOTICATION_ID = 0x1;
+    private BroadcastReceiver mScreenOffReceiver;
 
     private ArrayList<String> usableApps = new ArrayList<>();
 
@@ -156,6 +155,5 @@ public class MyService extends Service {
             Log.v("MyService", "Not killing " + currentForegroundPackageName);
         }
     }
-
 
 }

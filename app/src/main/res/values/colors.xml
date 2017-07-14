@@ -20,6 +20,8 @@
     <!-- Accent color for UI controls like checkboxes and text fields -->
     <color name="colorAccent">#F0514B</color>
 
+    <color name="colorInitial">#fff59d</color>
+
     <!-- Primary color for the editor -->
     <color name="editorColorPrimary">#2D3640</color>
 

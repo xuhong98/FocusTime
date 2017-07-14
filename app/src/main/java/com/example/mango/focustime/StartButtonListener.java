@@ -14,12 +14,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mango.focustime.service.MyService;
 
-import static android.content.ContentValues.TAG;
+import com.example.mango.focustime.lineartimer.LinearTimer;
+import com.example.mango.focustime.lineartimer.LinearTimerView;
+
 import static com.example.mango.focustime.R.id.minute;
 import static com.example.mango.focustime.R.id.second;
 
@@ -42,15 +43,20 @@ public class StartButtonListener implements View.OnClickListener{
     private NotificationCompat.Builder mBuilder;
     private PendingIntent pendingIntent;
 
+   private LinearTimer linearTimer;
 
-    public StartButtonListener(Context context, Activity activity){
+
+    public StartButtonListener(Context context, Activity activity, LinearTimer linearTimer){
         this.context = context;
         this.activity = activity;
         this.intent = activity.getIntent();
+        this.linearTimer = linearTimer;
 
         second = (EditText) activity.findViewById(R.id.second);
         minute = (EditText) activity.findViewById(R.id.minute);
         s = (Button) activity.findViewById(R.id.start);
+
+
     }
 
     @Override
@@ -94,8 +100,8 @@ public class StartButtonListener implements View.OnClickListener{
                     long m = secondLeft/60;
                     long s = secondLeft - m * 60;
 
-                    minute.setText("" + m + " min");
-                    second.setText("" + s + " sec");
+                    minute.setText("" + m + " m");
+                    second.setText("" + s + " s");
 
                     pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -115,7 +121,10 @@ public class StartButtonListener implements View.OnClickListener{
 
             openAccessibilityService();
 
+            //linearTimer.builder.
+
             timer.start();
+            linearTimer.startTimer((totalSecond - 1) * 1000);
             timerStarted = true;
 
 
@@ -178,6 +187,8 @@ public class StartButtonListener implements View.OnClickListener{
 
     private void clearTimer() {
         timer.cancel();
+        linearTimer.pauseTimer();
+        linearTimer.resetTimer();
 
         timerStarted = false;
         s.setText("start");

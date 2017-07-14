@@ -26,9 +26,10 @@
             android:label="Todo List"
             android:parentActivityName=".FocusModeActivity" />
         <activity android:name=".EditorActivity" />
-        <activity android:name=".HowToUseActivity"
+        <activity
+            android:name=".HowToUseActivity"
             android:label="How to use?"
-            android:parentActivityName=".FocusModeActivity"/>
+            android:parentActivityName=".FocusModeActivity" />
 
         <provider
             android:name=".data.TodoProvider"
@@ -54,6 +55,7 @@
         <service android:name=".service.MyService" />
 
         <receiver android:name=".receiver.MyReceiver" />
+
     </application>
 
 </manifest>
