@@ -122,8 +122,19 @@ public class StartButtonListener implements View.OnClickListener {
                 long m = secondLeft / 60;
                 long s = secondLeft - m * 60;
 
-                minute.setText("" + m + " m");
-                second.setText("" + s + " s");
+                String M = "" + m;
+                String S = "" + s;
+
+                //Format
+                if(M.length() == 1) {
+                    M = "0" + M;
+                }
+                if(S.length() == 1) {
+                    S = "0" + S;
+                }
+
+                minute.setText(M);
+                second.setText(S);
 
                 pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 

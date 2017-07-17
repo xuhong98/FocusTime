@@ -31,19 +31,26 @@
                     android:id="@+id/minute"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Min"
+                    android:hint="MIN"
                     android:inputType="number"
                     android:textSize="60dp"
-                    android:textColor="@drawable/edit_text_selector"/>
+                    android:textColor="@drawable/edit_text_selector"
+                    android:gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=":"
+                    android:textSize="60dp" />
 
                 <EditText
                     android:id="@+id/second"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Sec"
+                    android:hint="SEC"
                     android:inputType="number"
                     android:textSize="60dp"
-                    android:textColor="@drawable/edit_text_selector"/>
+                    android:textColor="@drawable/edit_text_selector"
+                    android:gravity="center"/>
 
             </LinearLayout>
 
