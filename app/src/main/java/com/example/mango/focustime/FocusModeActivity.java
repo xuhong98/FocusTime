@@ -98,6 +98,10 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
                 Intent intent = new Intent(FocusModeActivity.this, HowToUseActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.settings:
+                Intent intent2 = new Intent(FocusModeActivity.this, SettingsActivity.class);
+                startActivity(intent2);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
