@@ -40,7 +40,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=":"
-                    android:textSize="60dp" />
+                    android:textSize="60dp"
+                    android:id="@+id/mark"/>
 
                 <EditText
                     android:id="@+id/second"

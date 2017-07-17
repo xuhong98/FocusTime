@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mango.focustime.lineartimer.LinearTimerStates;
@@ -21,9 +23,6 @@ import com.example.mango.focustime.service.MyService;
 
 import com.example.mango.focustime.lineartimer.LinearTimer;
 import com.example.mango.focustime.lineartimer.LinearTimerView;
-
-import static com.example.mango.focustime.R.id.minute;
-import static com.example.mango.focustime.R.id.second;
 
 /**
  * Created by chenxiaoman on 23/6/17.
@@ -104,7 +103,7 @@ public class StartButtonListener implements View.OnClickListener {
                 return true;
             }
         } else {
-            if (Integer.parseInt(minute.getText().toString()) <= 0 || Integer.parseInt(second.getText().toString()) <= 0) {
+            if (Integer.parseInt(minute.getText().toString()) <= 0 && Integer.parseInt(second.getText().toString()) <= 0) {
                 Toast.makeText(context, "Invalid number", Toast.LENGTH_SHORT).show();
                 return false;
             } else {
@@ -135,6 +134,8 @@ public class StartButtonListener implements View.OnClickListener {
 
                 minute.setText(M);
                 second.setText(S);
+
+
 
                 pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 

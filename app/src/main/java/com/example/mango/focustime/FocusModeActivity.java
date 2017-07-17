@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,6 +70,16 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
         StartButtonListener listener = new StartButtonListener(FocusModeActivity.this, this, linearTimer);
         Button startButton = (Button) findViewById(R.id.start);
         startButton.setOnClickListener(listener);
+
+        // Set font
+        EditText second = (EditText) findViewById(R.id.second);
+        EditText minute = (EditText) findViewById(R.id.minute);
+        TextView mark = (TextView) findViewById(R.id.mark);
+        Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/Oswald-Regular.ttf");
+
+        second.setTypeface(custom_font);
+        minute.setTypeface(custom_font);
+        mark.setTypeface(custom_font);
     }
 
     @Override
