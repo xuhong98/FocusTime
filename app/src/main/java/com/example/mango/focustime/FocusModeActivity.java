@@ -45,18 +45,6 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
         setContentView(R.layout.activity_focus_mode);
         mContext = this;
 
-        // Setup FAB to open EditorActivity
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(FocusModeActivity.this, ToDoActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-
         linearTimerView = (LinearTimerView) findViewById(R.id.linearTimer);
 
         linearTimer = new LinearTimer.Builder()
@@ -101,6 +89,10 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
             case R.id.settings:
                 Intent intent2 = new Intent(FocusModeActivity.this, SettingsActivity.class);
                 startActivity(intent2);
+                return true;
+            case R.id.todo:
+                Intent intent3 = new Intent(FocusModeActivity.this, ToDoActivity.class);
+                startActivity(intent3);
                 return true;
         }
         return super.onOptionsItemSelected(item);

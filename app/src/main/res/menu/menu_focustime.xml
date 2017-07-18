@@ -17,6 +17,11 @@
     tools:context=".CatalogActivity">
 
     <item
+        android:id="@+id/todo"
+        android:title="todo"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/how_to_use"
         android:title="How to use?"
         app:showAsAction="never" />
