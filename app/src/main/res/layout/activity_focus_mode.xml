@@ -8,74 +8,82 @@
     android:padding="20dp"
     tools:context="com.example.mango.focustime.FocusModeActivity">
 
-    <RelativeLayout
-        android:id="@+id/timer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
-
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:orientation="vertical">
+            android:layout_centerHorizontal="true">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/minute"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="MIN"
-                    android:inputType="number"
-                    android:textSize="60dp"
-                    android:textColor="@drawable/edit_text_selector"
-                    android:gravity="center"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=":"
-                    android:textSize="60dp"
-                    android:id="@+id/mark"/>
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/second"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="SEC"
-                    android:inputType="number"
-                    android:textSize="60dp"
-                    android:textColor="@drawable/edit_text_selector"
-                    android:gravity="center"/>
+                    <EditText
+                        android:id="@+id/minute"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="MIN"
+                        android:inputType="number"
+                        android:textSize="65dp"
+                        android:textColor="@drawable/edit_text_selector"
+                        android:gravity="center"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=":"
+                        android:textSize="70dp"
+                        android:id="@+id/mark"/>
 
+                    <EditText
+                        android:id="@+id/second"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="SEC"
+                        android:inputType="number"
+                        android:textSize="65dp"
+                        android:textColor="@drawable/edit_text_selector"
+                        android:gravity="center"/>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/start"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorSecondary"
+                    android:text="start"
+                    android:textColor="#000" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/start"
-                android:layout_width="match_parent"
+            <com.example.mango.focustime.lineartimer.LinearTimerView
+                android:id="@+id/linearTimer"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorPrimary"
-                android:text="start"
-                android:textColor="#ffff" />
-        </LinearLayout>
+                timer:radius="63dp"
+                timer:strokeWidth="2dp"
+                timer:startingPoint="270"
+                timer:initialColor="@color/colorSecondaryDark"
+                timer:progressColor="@color/colorSecondaryLigit"
+                android:layout_centerHorizontal="true" />
+            <TextView
+                android:id="@+id/motto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="\nWhat doesn't kill you makes you stronger."
+                android:layout_below="@+id/linearTimer"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
 
-        <com.example.mango.focustime.lineartimer.LinearTimerView
-            android:id="@+id/linearTimer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            timer:radius="63dp"
-            timer:strokeWidth="2dp"
-            timer:startingPoint="270"
-            timer:initialColor="@color/colorPrimary"
-            timer:progressColor="@color/colorInitial"
-            android:layout_centerHorizontal="true" />
 
-    </RelativeLayout>
 
 </RelativeLayout>
 

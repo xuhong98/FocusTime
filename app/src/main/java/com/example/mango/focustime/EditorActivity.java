@@ -17,6 +17,7 @@ package com.example.mango.focustime;
 
 import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -100,38 +101,6 @@ public class EditorActivity extends AppCompatActivity implements
             getLoaderManager().initLoader(EXISTING_TODO_LOADER, null, this);
         }
 
-    }
-
-
-    /**
-     * Get user input from editor and save new pet into database.
-     */
-    private void insertTodo() {
-        // Read from input fields
-        // Use trim to eliminate leading or trailing white space
-        String nameString = mTitleEditText.getText().toString().trim();
-        String breedString = mDesEditText.getText().toString().trim();
-
-        // Create a ContentValues object where column names are the keys,
-        // and pet attributes from the editor are the values.
-        ContentValues values = new ContentValues();
-        values.put(TodoEntry.COLUMN_TITLE, nameString);
-        values.put(TodoEntry.COLUMN_DESCRIPTION, breedString);
-        values.put(TodoEntry.COLUMN_DONE, TodoEntry.UNCHECKED);
-
-        // Insert a new pet into the provider, returning the content URI for the new pet.
-        Uri newUri = getContentResolver().insert(TodoEntry.CONTENT_URI, values);
-
-        // Show a toast message depending on whether or not the insertion was successful
-        if (newUri == null) {
-            // If the new content URI is null, then there was an error with insertion.
-            Toast.makeText(this, "Insert failed",
-                    Toast.LENGTH_SHORT).show();
-        } else {
-            // Otherwise, the insertion was successful and we can display a toast.
-            Toast.makeText(this, "Insert successful",
-                    Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
@@ -304,6 +273,30 @@ public class EditorActivity extends AppCompatActivity implements
             } else {
                 // Otherwise, the delete was successful and we can display a toast.
                 Toast.makeText(this, "Delete successful",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        // Close the activity
+        finish();
+    }
+
+    public void deleteTodo(Uri mCurrentPetUri, Context context) {
+        // Only perform the delete if this is an existing pet.
+        if (mCurrentPetUri != null) {
+            // Call the ContentResolver to delete the pet at the given content URI.
+            // Pass in null for the selection and selection args because the mCurrentPetUri
+            // content URI already identifies the pet that we want.
+            int rowsDeleted = context.getContentResolver().delete(mCurrentPetUri, null, null);
+
+            // Show a toast message depending on whether or not the delete was successful.
+            if (rowsDeleted == 0) {
+                // If no rows were deleted, then there was an error with the delete.
+                Toast.makeText(context, "Delete failed",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                // Otherwise, the delete was successful and we can display a toast.
+                Toast.makeText(context, "Delete successful",
                         Toast.LENGTH_SHORT).show();
             }
         }

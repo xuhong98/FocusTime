@@ -56,7 +56,7 @@ public class LinearTimerView extends View {
                             ContextCompat.getColor(getContext(), R.color.colorPrimary));
             this.progressColor =
                     typedArray.getColor(R.styleable.LinearTimerView_progressColor,
-                            ContextCompat.getColor(getContext(), R.color.colorInitial));
+                            ContextCompat.getColor(getContext(), R.color.colorSecondary));
             this.startingPoint =
                     typedArray.getInt(R.styleable.LinearTimerView_startingPoint, 270);
         } catch (Exception ex) {

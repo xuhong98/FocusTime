@@ -26,6 +26,7 @@ import com.example.mango.focustime.data.TodoContract;
 import java.util.ArrayList;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+import static com.example.mango.focustime.StartButtonListener.context;
 
 public class
 ToDoActivity extends AppCompatActivity implements
@@ -40,6 +41,8 @@ ToDoActivity extends AppCompatActivity implements
      * Adapter for the ListView
      */
     TodoCursorAdapter mCursorAdapter;
+
+    private SwipeDetector swipeDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +71,18 @@ ToDoActivity extends AppCompatActivity implements
         mCursorAdapter = new TodoCursorAdapter(this, null);
         ListView.setAdapter(mCursorAdapter);
 
+        swipeDetector = new SwipeDetector();
+        ListView.setOnTouchListener(swipeDetector);
+
+        // Kick off the loader
+        getLoaderManager().initLoader(TODO_LOADER, null, this);
+
         // Setup the item click listener
         ListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
+
                 // Create new intent to go to {@link EditorActivity}
                 Log.v("...", "start intent");
                 Intent intent = new Intent(ToDoActivity.this, EditorActivity.class);
@@ -83,6 +94,14 @@ ToDoActivity extends AppCompatActivity implements
                 // if the pet with ID 2 was clicked on.
                 Uri currentPetUri = ContentUris.withAppendedId(TodoContract.TodoEntry.CONTENT_URI, id);
 
+                //Detect swipe action
+                if(swipeDetector.swipeDetected()) {
+                    if(swipeDetector.getAction() == SwipeDetector.Action.LR) {
+                        new EditorActivity().deleteTodo(currentPetUri, getApplicationContext());
+                        return;
+                    }
+                }
+
                 // Set the URI on the data field of the intent
                 intent.setData(currentPetUri);
 
@@ -91,26 +110,6 @@ ToDoActivity extends AppCompatActivity implements
             }
         });
 
-        // Kick off the loader
-        getLoaderManager().initLoader(TODO_LOADER, null, this);
-    }
-
-
-    /**
-     * Helper method to insert hardcoded pet data into the database. For debugging purposes only.
-     */
-    private void insertTodo() {
-        // Create a ContentValues object where column names are the keys,
-        // and Toto's pet attributes are the values.
-        ContentValues values = new ContentValues();
-        values.put(TodoContract.TodoEntry.COLUMN_TITLE, "Todo");
-        values.put(TodoContract.TodoEntry.COLUMN_DESCRIPTION, "Description");
-
-        // Insert a new row for Toto into the provider using the ContentResolver.
-        // Use the {@link PetEntry#CONTENT_URI} to indicate that we want to insert
-        // into the pets database table.
-        // Receive the new content URI that will allow us to access Toto's data in the future.
-        Uri newUri = getContentResolver().insert(TodoContract.TodoEntry.CONTENT_URI, values);
     }
 
     @Override

@@ -4,12 +4,14 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,6 +40,8 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
     private Context mContext;
     private LinearTimerView linearTimerView;
     private LinearTimer linearTimer;
+    private TextView motto;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +72,17 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
         second.setTypeface(custom_font);
         minute.setTypeface(custom_font);
         mark.setTypeface(custom_font);
+
+        motto = (TextView) findViewById(R.id.motto);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if (sharedPreferences.getBoolean(getString(R.string.pref_show_motto), true) ==  false) {
+            motto.setVisibility(View.INVISIBLE);
+        } else {
+            motto.setVisibility(View.VISIBLE);
+        }
+
+
     }
 
     @Override
