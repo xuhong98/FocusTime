@@ -25,6 +25,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.SharedPreferences;
 
 import com.example.mango.focustime.lineartimer.LinearTimer;
 import com.example.mango.focustime.lineartimer.LinearTimerView;
@@ -36,7 +37,7 @@ import static com.example.mango.focustime.StartButtonListener.timer;
 
 //import static com.example.mango.focustime.R.id.second;
 
-public class FocusModeActivity extends AppCompatActivity implements LinearTimer.TimerListener{
+public class FocusModeActivity extends AppCompatActivity implements LinearTimer.TimerListener, SharedPreferences.OnSharedPreferenceChangeListener{
 
     private Context mContext;
     private LinearTimerView linearTimerView;
@@ -76,18 +77,13 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
 
         motto = (TextView) findViewById(R.id.motto);
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if (sharedPreferences.getBoolean(getString(R.string.pref_show_motto), true) ==  false) {
-            motto.setVisibility(View.INVISIBLE);
-        } else {
-            motto.setVisibility(View.VISIBLE);
-        }
-
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
         linearTimerView.setCircleRadiusInDp(width / 7);
+
+        setupSharedPreferences();
     }
 
     @Override
@@ -117,6 +113,15 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
         }
         return super.onOptionsItemSelected(item);
     }
+
+    // from shared preferences. Call setColor, passing in the color you got
+    private void setupSharedPreferences() {
+        // Get all of the values from shared preferences to set it up
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        // Register the listener
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -129,6 +134,11 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
         Features.showForeground = false;
         Intent intent = new Intent(mContext, MyService.class);
         mContext.stopService(intent);
+
+
+        // Unregister VisualizerActivity as an OnPreferenceChangedListener to avoid any memory leaks.
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .unregisterOnSharedPreferenceChangeListener(this);
     }
 
 
@@ -152,5 +162,17 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
         //Do nothing
         return;
     }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(getString(R.string.pref_show_motto))) {
+            if (motto.getVisibility() == View.INVISIBLE) {
+                motto.setVisibility(View.VISIBLE);
+            } else {
+                motto.setVisibility(View.INVISIBLE);
+            }
+        }
+    }
+
 }
 
