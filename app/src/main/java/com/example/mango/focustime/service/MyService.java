@@ -14,6 +14,7 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.mango.focustime.Activity.FocusModeActivity;
 import com.example.mango.focustime.R;
@@ -149,6 +150,8 @@ public class MyService extends Service {
             this.startActivity(startMain);
 
             am.killBackgroundProcesses(currentForegroundPackageName);
+
+            Toast.makeText(getApplicationContext(), "You can't open this app during FocusTime", Toast.LENGTH_SHORT).show();
         } else {
             Log.v("MyService", "Not killing " + currentForegroundPackageName);
         }
