@@ -15,4 +15,6 @@
     <string name="pref_motto_default" translatable="false">One today is worth two tomorrows.</string>
 
     <string name="pref_total_second_in_db">total_second_in_db</string>
+
+    <string name="alarm_goes_off">Alarm goes off</string>
 </resources>

@@ -24,6 +24,7 @@ import com.example.mango.focustime.processutil.Features;
 import com.example.mango.focustime.service.MyService;
 
 import com.example.mango.focustime.lineartimer.LinearTimer;
+import com.example.mango.focustime.PreferenceUtilities;
 
 /**
  * Created by chenxiaoman on 23/6/17.
@@ -256,7 +257,9 @@ public class StartButtonListener implements View.OnClickListener {
 
     private void storeTotalSecondsPassed() {
         countTotalSecondsPassed();
-
+        Long totalSecondRecorded = PreferenceUtilities.getTotalSecondRecorded(context);
+        totalSecondRecorded += totalSecondPassed + 1;
+        PreferenceUtilities.setSecondRecorded(context, totalSecondRecorded);
     }
 
     final static String TAG = "AccessibilityUtil";
@@ -308,6 +311,7 @@ public class StartButtonListener implements View.OnClickListener {
                     });
             noPermissionDialog.show();
         } else {
+            return;
         }
     }
 

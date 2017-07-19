@@ -107,12 +107,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/you_have_focused"
+            android:id="@+id/totalFocusedTime"
             android:text=" 10days, 3hour, 2min and 19sec"
             android:layout_centerHorizontal="true"
+            android:textSize="16dp"
             android:textColor="@color/colorPrimaryDark"
             android:fontFamily="sans-serif-condensed"/>
 
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_alarm_set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00000100"
+        android:text="设置提醒"
+        android:textColor="#4d4d4d"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/btn_alarm_cancle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00000100"
+        android:text="取消提醒"
+        android:textColor="#4d4d4d"
+        android:textSize="20dp"
+        android:layout_below="@+id/btn_alarm_set"/>
 
 
 </RelativeLayout>
