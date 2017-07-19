@@ -105,7 +105,7 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
     // from shared preferences. Call setColor, passing in the color you got
     private void setupSharedPreferences() {
         // Get all of the values from shared preferences to set it up
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         // Register the listener
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }

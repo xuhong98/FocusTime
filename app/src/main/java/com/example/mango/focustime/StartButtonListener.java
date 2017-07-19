@@ -7,9 +7,11 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -45,6 +47,10 @@ public class StartButtonListener implements View.OnClickListener {
     private int totalSecond = 0;
 
     private LinearTimer linearTimer;
+
+    private SharedPreferences sharedPreferences;
+    private long secondLeft;
+    private long totalSecondPassed;
 
 
     public StartButtonListener(Context context, Activity activity, LinearTimer linearTimer) {
@@ -116,7 +122,7 @@ public class StartButtonListener implements View.OnClickListener {
         timer = new CountDownTimer(totalSecond * 1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                long secondLeft = millisUntilFinished / 1000;
+                secondLeft = millisUntilFinished / 1000;
                 long m = secondLeft / 60;
                 long s = secondLeft - m * 60;
 
@@ -215,6 +221,7 @@ public class StartButtonListener implements View.OnClickListener {
     }
 
     private void clearTimer() {
+
         timer.cancel();
         if (linearTimer.getState().equals(LinearTimerStates.ACTIVE)) {
             linearTimer.pauseTimer();
@@ -239,6 +246,12 @@ public class StartButtonListener implements View.OnClickListener {
         context.stopService(i);
 
         s.setText("start");
+
+        countTotalSecondsPassed();
+    }
+
+    private void countTotalSecondsPassed() {
+        totalSecondPassed = totalSecond - secondLeft;
     }
 
     final static String TAG = "AccessibilityUtil";
