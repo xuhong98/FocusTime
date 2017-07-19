@@ -1,27 +1,8 @@
-package com.example.mango.focustime;
+package com.example.mango.focustime.processutil;
 
-import android.annotation.TargetApi;
-import android.app.ActivityManager;
-import android.app.AppOpsManager;
-import android.app.Service;
-import android.app.usage.UsageStats;
-import android.app.usage.UsageStatsManager;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.os.Build;
-import android.provider.Settings;
-import android.text.TextUtils;
-import android.widget.Toast;
 
-import com.example.mango.focustime.processutil.AndroidAppProcess;
-import com.example.mango.focustime.processutil.ProcessManager;
-
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import com.example.mango.focustime.service.DetectionService;
 
 /**
  * Created by wenmingvs on 2016/1/14.

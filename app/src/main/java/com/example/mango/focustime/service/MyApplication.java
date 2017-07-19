@@ -1,4 +1,4 @@
-package com.example.mango.focustime;
+package com.example.mango.focustime.service;
 
 import android.app.Activity;
 import android.app.AlertDialog;

@@ -22,8 +22,8 @@ import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
-import com.example.mango.focustime.BackgroundUtil;
-import com.example.mango.focustime.FocusModeActivity;
+import com.example.mango.focustime.processutil.BackgroundUtil;
+import com.example.mango.focustime.Activity.FocusModeActivity;
 
 import java.util.HashSet;
 import java.util.List;

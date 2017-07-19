@@ -1,4 +1,4 @@
-package com.example.mango.focustime;
+package com.example.mango.focustime.Activity;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -6,9 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.mango.focustime.processutil.Features;
+import com.example.mango.focustime.R;
 import com.example.mango.focustime.service.MyService;
 
-import static com.example.mango.focustime.StartButtonListener.context;
+//import static com.example.mango.focustime.StartButtonListener.context;
 
 public class PunishmentActivity extends AppCompatActivity {
     private MediaPlayer mp = new MediaPlayer();
@@ -22,8 +24,8 @@ public class PunishmentActivity extends AppCompatActivity {
 
         // Stop detection service
         Features.showForeground = false;
-        Intent i = new Intent(context, MyService.class);
-        context.stopService(i);
+        Intent i = new Intent(this, MyService.class);
+        this.stopService(i);
 
         //finish playing music and go back to mainActivity
         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

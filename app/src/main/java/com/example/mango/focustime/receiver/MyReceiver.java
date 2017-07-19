@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.example.mango.focustime.Features;
+import com.example.mango.focustime.processutil.Features;
 import com.example.mango.focustime.service.MyService;
 
 

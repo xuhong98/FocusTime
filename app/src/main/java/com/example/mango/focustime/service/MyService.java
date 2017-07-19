@@ -9,19 +9,17 @@ import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.example.mango.focustime.DetectionService;
-import com.example.mango.focustime.FocusModeActivity;
+import com.example.mango.focustime.Activity.FocusModeActivity;
 import com.example.mango.focustime.R;
-import com.example.mango.focustime.Features;
+import com.example.mango.focustime.processutil.Features;
 import com.example.mango.focustime.receiver.MyReceiver;
-import com.example.mango.focustime.BackgroundUtil;
+import com.example.mango.focustime.processutil.BackgroundUtil;
 
 import java.util.ArrayList;
 

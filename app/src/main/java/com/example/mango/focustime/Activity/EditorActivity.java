@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.mango.focustime;
+package com.example.mango.focustime.Activity;
 
 import android.app.LoaderManager;
 import android.content.ContentValues;
@@ -40,6 +40,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.mango.focustime.R;
 import com.example.mango.focustime.data.TodoContract.TodoEntry;
 
 /**

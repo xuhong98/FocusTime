@@ -7,7 +7,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
@@ -15,14 +14,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mango.focustime.Activity.PunishmentActivity;
 import com.example.mango.focustime.lineartimer.LinearTimerStates;
+import com.example.mango.focustime.processutil.Features;
 import com.example.mango.focustime.service.MyService;
 
 import com.example.mango.focustime.lineartimer.LinearTimer;
-import com.example.mango.focustime.lineartimer.LinearTimerView;
 
 /**
  * Created by chenxiaoman on 23/6/17.

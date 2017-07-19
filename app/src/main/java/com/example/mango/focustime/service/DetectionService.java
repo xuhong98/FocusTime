@@ -1,4 +1,4 @@
-package com.example.mango.focustime;
+package com.example.mango.focustime.service;
 
 import android.accessibilityservice.AccessibilityService;
 import android.content.Intent;
@@ -14,7 +14,7 @@ public class DetectionService extends AccessibilityService {
 
     final static String TAG = "DetectionService";
 
-    static String foregroundPackageName;
+    public static String foregroundPackageName;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {

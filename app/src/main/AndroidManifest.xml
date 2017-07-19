@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".FocusModeActivity"
+            android:name=".Activity.FocusModeActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -21,16 +21,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PunishmentActivity" />
+        <activity android:name=".Activity.PunishmentActivity" />
         <activity
-            android:name=".ToDoActivity"
+            android:name=".Activity.ToDoActivity"
             android:label="Todo List"
-            android:parentActivityName=".FocusModeActivity" />
-        <activity android:name=".EditorActivity" />
+            android:parentActivityName=".Activity.FocusModeActivity" />
+        <activity android:name=".Activity.EditorActivity" />
         <activity
-            android:name=".HowToUseActivity"
+            android:name=".Activity.HowToUseActivity"
             android:label="How to use?"
-            android:parentActivityName=".FocusModeActivity" />
+            android:parentActivityName=".Activity.FocusModeActivity" />
 
         <provider
             android:name=".data.TodoProvider"
@@ -43,7 +43,7 @@
             android:label="@string/app_name" />
 
         <service
-            android:name=".DetectionService"
+            android:name=".service.DetectionService"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
@@ -57,9 +57,9 @@
 
         <receiver android:name=".receiver.MyReceiver" />
 
-        <activity android:name=".SettingsActivity"
+        <activity android:name=".Activity.SettingsActivity"
             android:label="Settings"
-            android:parentActivityName=".FocusModeActivity"></activity>
+            android:parentActivityName=".Activity.FocusModeActivity"></activity>
     </application>
 
 </manifest>

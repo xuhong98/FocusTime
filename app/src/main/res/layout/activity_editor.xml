@@ -18,7 +18,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".EditorActivity">
+    tools:context=".Activity.EditorActivity">
 
     <!-- Overview category -->
     <LinearLayout
@@ -28,9 +28,11 @@
 
         <!-- Label -->
         <TextView
-            android:text="ToDo List"
+            android:text="Todo"
             style="@style/CategoryStyle"
-            android:textSize="20dp"/>
+            android:textColor="@color/colorSecondaryDark"
+            android:textSize="30dp"
+            android:layout_height="match_parent" />
 
         <!-- Input fields -->
         <LinearLayout

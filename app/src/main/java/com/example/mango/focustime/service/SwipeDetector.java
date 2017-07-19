@@ -1,4 +1,4 @@
-package com.example.mango.focustime;
+package com.example.mango.focustime.service;
 
 import android.util.Log;
 import android.view.MotionEvent;
