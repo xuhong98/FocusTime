@@ -247,11 +247,16 @@ public class StartButtonListener implements View.OnClickListener {
 
         s.setText("start");
 
-        countTotalSecondsPassed();
+        storeTotalSecondsPassed();
     }
 
     private void countTotalSecondsPassed() {
         totalSecondPassed = totalSecond - secondLeft;
+    }
+
+    private void storeTotalSecondsPassed() {
+        countTotalSecondsPassed();
+
     }
 
     final static String TAG = "AccessibilityUtil";

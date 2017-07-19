@@ -108,6 +108,8 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         // Register the listener
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+
+        loadMottoFromSharedPreferences(sharedPreferences);
     }
 
     @Override
@@ -153,13 +155,15 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals(getString(R.string.pref_show_motto))) {
-            if (motto.getVisibility() == View.INVISIBLE) {
-                motto.setVisibility(View.VISIBLE);
-            } else {
-                motto.setVisibility(View.INVISIBLE);
-            }
+        if (key.equals(getString(R.string.pref_motto_key))) {
+            loadMottoFromSharedPreferences(sharedPreferences);
         }
+    }
+
+    private void loadMottoFromSharedPreferences(SharedPreferences sharedPreferences) {
+        String customizedMotto = sharedPreferences.getString(getString(R.string.pref_motto_key),
+                getString(R.string.pref_motto_default));
+        motto.setText(customizedMotto);
     }
 
 }

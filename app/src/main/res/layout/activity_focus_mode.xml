@@ -94,13 +94,23 @@
             android:layout_centerHorizontal="true" />
 
         <TextView
+            android:paddingTop="5dp"
+            android:id="@+id/you_have_focused"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
             android:layout_below="@id/motto"
             android:textColor="@color/colorPrimaryDark"
-            android:text="You have already focused for 10 days and 3 hour."
+            android:text="You have already focused for"
             android:layout_centerHorizontal="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/you_have_focused"
+            android:text=" 10days, 3hour, 2min and 19sec"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/colorPrimaryDark"
+            android:fontFamily="sans-serif-condensed"/>
 
     </RelativeLayout>
 
