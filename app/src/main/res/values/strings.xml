@@ -20,22 +20,28 @@
 
     <string name="pref_category_motto_title">motto</string>
 
-    <string name="pref_camera_label">camera</string>
+    <string name="pref_camera_label">Camera</string>
 
     <string name="pref_camera_key" translatable="false">camera_key</string>
 
-    <string name="pref_cal_label">calculator</string>
+    <string name="pref_cal_label">Calculator</string>
 
     <string name="pref_cal_key" translatable="false">cal_key</string>
 
-    <string name="pref_phone_label">phone</string>
+    <string name="pref_phone_label">Phone</string>
 
     <string name="pref_phone_key" translatable="false">phone_key</string>
 
-    <string name="pref_calendar_label">calendar</string>
+    <string name="pref_calendar_label">Calendar</string>
 
     <string name="pref_calendar_key" translatable="false">calendar_key</string>
 
     <string name="pref_on">on</string>
     <string name="pref_off">off</string>
+
+    <string name="pref_category_reminder">time reminder</string>
+
+    <string name="pref_reminder_label">Set reminder</string>
+
+    <string name="pref_reminder_key" translatable="false">reminder_key</string>
 </resources>

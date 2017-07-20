@@ -39,9 +39,26 @@ public class SettingFragment extends PreferenceFragmentCompat implements
                 setPreferenceSummary(p, value);
             }
         }
+
         Preference preference = findPreference(getString(R.string.pref_motto_key));
         preference.setOnPreferenceChangeListener(this);
         setPreferenceSummary(preference, sharedPreferences.getString(getResources().getString(R.string.pref_motto_key), getResources().getString(R.string.pref_motto_default)));
+
+        Preference preferenceReminder = findPreference(getString(R.string.pref_reminder_key));
+        preference.setOnPreferenceChangeListener(this);
+
+        Preference preferenceCamera = findPreference(getString(R.string.pref_camera_key));
+        preference.setOnPreferenceChangeListener(this);
+
+        Preference preferenceCalculator = findPreference(getString(R.string.pref_cal_key));
+        preference.setOnPreferenceChangeListener(this);
+
+        Preference preferenceCalendar = findPreference(getString(R.string.pref_calendar_key));
+        preference.setOnPreferenceChangeListener(this);
+
+        Preference preferencePhone = findPreference(getString(R.string.pref_phone_key));
+        preference.setOnPreferenceChangeListener(this);
+
     }
 
     @Override
@@ -78,17 +95,10 @@ public class SettingFragment extends PreferenceFragmentCompat implements
         }
     }
 
-    // to a float; if it cannot, show a helpful error message and return false. If it can be converted
-    // to a float check that that float is between 0 (exclusive) and 3 (inclusive). If it isn't, show
-    // an error message and return false. If it is a valid number, return true.
-
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
 
-        // Double check that the preference is the size preference
-        String mottoKey = getString(R.string.pref_motto_key);
-
-        if (preference.getKey().equals(mottoKey)) {
+        if (preference.getKey().equals(getString(R.string.pref_motto_key))) {
             String stringMotto = (String) newValue;
             if (stringMotto.isEmpty()) {
                 return false;
@@ -97,6 +107,16 @@ public class SettingFragment extends PreferenceFragmentCompat implements
                 Toast.makeText(getContext(), "Motto set", Toast.LENGTH_SHORT).show();
                 return true;
             }
+        } else if (preference.getKey().equals(getString(R.string.pref_phone_key))) {
+            boolean usable = (boolean) newValue;
+        } else if (preference.getKey().equals(getString(R.string.pref_camera_key))) {
+            boolean usable = (boolean) newValue;
+        } else if (preference.getKey().equals(getString(R.string.pref_calendar_key))) {
+            boolean usable = (boolean) newValue;
+        } else if (preference.getKey().equals(getString(R.string.pref_cal_key))) {
+            boolean usable = (boolean) newValue;
+        } else if (preference.getKey().equals(getString(R.string.pref_reminder_key))) {
+            boolean setReminder = (boolean) newValue;
         }
         return false;
 
