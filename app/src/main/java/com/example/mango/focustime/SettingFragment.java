@@ -9,6 +9,7 @@ import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
+import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -38,7 +39,6 @@ public class SettingFragment extends PreferenceFragmentCompat implements
                 setPreferenceSummary(p, value);
             }
         }
-
         Preference preference = findPreference(getString(R.string.pref_motto_key));
         preference.setOnPreferenceChangeListener(this);
     }
@@ -86,15 +86,19 @@ public class SettingFragment extends PreferenceFragmentCompat implements
 
         // Double check that the preference is the size preference
         String mottoKey = getString(R.string.pref_motto_key);
+
         if (preference.getKey().equals(mottoKey)) {
             String stringMotto = (String) newValue;
             if (stringMotto.isEmpty()) {
-                Toast.makeText(getContext(), "Using default motto", Toast.LENGTH_SHORT).show();
                 return false;
+            } else {
+                setPreferenceSummary(preference, stringMotto);
+                Toast.makeText(getContext(), "Motto set", Toast.LENGTH_SHORT).show();
+                return true;
             }
         }
-        Toast.makeText(getContext(), "Motto set", Toast.LENGTH_SHORT).show();
-        return true;
+        return false;
+
     }
 
     @Override

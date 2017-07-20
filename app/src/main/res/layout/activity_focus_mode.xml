@@ -126,7 +126,7 @@
         android:textSize="20dp" />
 
     <Button
-        android:id="@+id/btn_alarm_cancle"
+        android:id="@+id/btn_alarm_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#00000100"

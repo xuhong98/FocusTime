@@ -22,13 +22,13 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/how_to_use"
-        android:title="How to use?"
+        android:id="@+id/settings"
+        android:title="Settings"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/settings"
-        android:title="Settings"
+        android:id="@+id/how_to_use"
+        android:title="How to use?"
         app:showAsAction="never" />
 
 </menu>

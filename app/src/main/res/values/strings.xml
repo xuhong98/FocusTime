@@ -9,12 +9,33 @@
     <string name="pref_motto_label">Set your motto</string>
 
     <!-- Key name for storing size in SharedPreferences -->
-    <string name="pref_motto_key" translatable="false">size</string>
+    <string name="pref_motto_key" translatable="false">motto_key</string>
 
     <!-- Default for size preference -->
     <string name="pref_motto_default" translatable="false">One today is worth two tomorrows.</string>
 
-    <string name="pref_total_second_in_db">total_second_in_db</string>
+    <string name="alarm_goes_off" translatable="false">Alarm goes off</string>
 
-    <string name="alarm_goes_off">Alarm goes off</string>
+    <string name="pref_category_usable_apps_title">apps that you want to use during FocusTime</string>
+
+    <string name="pref_category_motto_title">motto</string>
+
+    <string name="pref_camera_label">camera</string>
+
+    <string name="pref_camera_key" translatable="false">camera_key</string>
+
+    <string name="pref_cal_label">calculator</string>
+
+    <string name="pref_cal_key" translatable="false">cal_key</string>
+
+    <string name="pref_phone_label">phone</string>
+
+    <string name="pref_phone_key" translatable="false">phone_key</string>
+
+    <string name="pref_calendar_label">calendar</string>
+
+    <string name="pref_calendar_key" translatable="false">calendar_key</string>
+
+    <string name="pref_on">on</string>
+    <string name="pref_off">off</string>
 </resources>

@@ -14,7 +14,6 @@ import android.preference.PreferenceManager;
 public final class PreferenceUtilities {
 
     public static final String KEY_TOTAL_SECOND_RECORDED = "total-second-recorded";
-    public static final String KEY_CHARGING_REMINDER_COUNT = "charging-reminder-count";
 
     private static final int DEFAULT_COUNT = 0;
 
@@ -31,18 +30,11 @@ public final class PreferenceUtilities {
         return TotalSecondRecorded;
     }
 
-//    synchronized public static void incrementChargingReminderCount(Context context) {
+//    synchronized public static void setCamera(Context context, boolean usable) {
 //        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-//        int chargingReminders = prefs.getInt(KEY_CHARGING_REMINDER_COUNT, DEFAULT_COUNT);
-//
 //        SharedPreferences.Editor editor = prefs.edit();
-//        editor.putInt(KEY_CHARGING_REMINDER_COUNT, ++chargingReminders);
+//        editor.putBoolean(getString(R.string.pref_motto_key), usable);
 //        editor.apply();
 //    }
-//
-//    public static int getChargingReminderCount(Context context) {
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-//        int chargingReminders = prefs.getInt(KEY_CHARGING_REMINDER_COUNT, DEFAULT_COUNT);
-//        return chargingReminders;
-//    }
+
 }

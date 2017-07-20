@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.support.v7.preference.EditTextPreference;
 
 import com.example.mango.focustime.PreferenceUtilities;
 import com.example.mango.focustime.processutil.Features;
@@ -144,8 +145,8 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
                 }, hour, minute, true).show();
             }
         });
-        Button btnAlarmCancle = (Button) findViewById(R.id.btn_alarm_cancle);
-        btnAlarmCancle.setOnClickListener(new View.OnClickListener() {
+        Button btnAlarmCancel = (Button) findViewById(R.id.btn_alarm_cancel);
+        btnAlarmCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 btnAlarmSet.setText("设置提醒");
