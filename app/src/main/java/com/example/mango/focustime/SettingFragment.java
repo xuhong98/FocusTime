@@ -41,6 +41,7 @@ public class SettingFragment extends PreferenceFragmentCompat implements
         }
         Preference preference = findPreference(getString(R.string.pref_motto_key));
         preference.setOnPreferenceChangeListener(this);
+        setPreferenceSummary(preference, sharedPreferences.getString(getResources().getString(R.string.pref_motto_key), getResources().getString(R.string.pref_motto_default)));
     }
 
     @Override
