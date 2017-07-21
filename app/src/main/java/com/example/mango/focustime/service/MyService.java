@@ -145,24 +145,28 @@ public class MyService extends Service {
         ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         String currentForegroundPackageName = DetectionService.getForegroundPackageName();
 
+        Log.v("Phone usable ", "" + phoneUsable);
+        Log.v("Camera usable ", "" + cameraUsable);
+        Log.v("Calculator usable ", "" + calculatorUsable);
+        Log.v("Calendar usable ", "" + calendarUsable);
+
         if (currentForegroundPackageName != null && isKillableApp(currentForegroundPackageName)) {
 
             if (phoneUsable && isPhone(currentForegroundPackageName)) {
+                Toast.makeText(getApplicationContext(), "Phone is allowed during FocusTime", Toast.LENGTH_SHORT).show();
                 Log.v(currentForegroundPackageName, "Phone is usable");
             } else if (calculatorUsable && isCalculator(currentForegroundPackageName)) {
+                Toast.makeText(getApplicationContext(), "Calculator is allowed during FocusTime", Toast.LENGTH_SHORT).show();
                 Log.v(currentForegroundPackageName, "calculator is usable");
             } else if (cameraUsable && isCamera(currentForegroundPackageName)) {
+                Toast.makeText(getApplicationContext(), "Camera is allowed during FocusTime", Toast.LENGTH_SHORT).show();
                 Log.v(currentForegroundPackageName, "camera is usable");
             } else if (calendarUsable && isCalendar(currentForegroundPackageName)) {
+                Toast.makeText(getApplicationContext(), "Calendar is allowed during FocusTime", Toast.LENGTH_SHORT).show();
                 Log.v(currentForegroundPackageName, "calendar is usable");
             } else {
 
                 Log.v("MyService", "Killing " + currentForegroundPackageName);
-
-                Log.v("Phone usable ", "" + phoneUsable);
-                Log.v("Camera usable ", "" + cameraUsable);
-                Log.v("Calculator usable ", "" + calculatorUsable);
-                Log.v("Calendar usable ", "" + calendarUsable);
 
                 Intent startMain = new Intent(Intent.ACTION_MAIN);
                 startMain.addCategory(Intent.CATEGORY_HOME);
@@ -179,19 +183,19 @@ public class MyService extends Service {
     }
 
     private boolean isPhone(String packageName) {
-        return false;
+        return packageName.toLowerCase().contains("dialer");
     }
 
     private boolean isCamera(String packageName) {
-        return false;
+        return packageName.toLowerCase().contains("camera");
     }
 
     private boolean isCalendar(String packageName) {
-        return false;
+        return packageName.toLowerCase().contains("calendar");
     }
 
     private boolean isCalculator(String packageName) {
-        return false;
+        return packageName.toLowerCase().contains("calculator");
     }
 
     public static void setPhoneUsable(boolean phUsable) {
