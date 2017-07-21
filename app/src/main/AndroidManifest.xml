@@ -24,12 +24,12 @@
         <activity android:name=".Activity.PunishmentActivity" />
         <activity
             android:name=".Activity.ToDoActivity"
-            android:label="Todo List"
+            android:label="@string/todo"
             android:parentActivityName=".Activity.FocusModeActivity" />
         <activity android:name=".Activity.EditorActivity" />
         <activity
             android:name=".Activity.HowToUseActivity"
-            android:label="How to use?"
+            android:label="@string/how_to_use"
             android:parentActivityName=".Activity.FocusModeActivity" />
 
         <provider
@@ -58,7 +58,7 @@
         <receiver android:name=".receiver.MyReceiver" />
 
         <activity android:name=".Activity.SettingsActivity"
-            android:label="Settings"
+            android:label="@string/settings"
             android:parentActivityName=".Activity.FocusModeActivity"></activity>
     </application>
 

@@ -109,7 +109,7 @@ public class SettingFragment extends PreferenceFragmentCompat implements
                 return false;
             } else {
                 setPreferenceSummary(preference, stringMotto);
-                Toast.makeText(getContext(), "Motto set", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.set_motto_suc, Toast.LENGTH_SHORT).show();
                 return true;
             }
         }

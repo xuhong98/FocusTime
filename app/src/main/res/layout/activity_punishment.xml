@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.mango.focustime.Activity.PunishmentActivity"
+    android:layout_height="match_parent"
+    android:layout_width="wrap_content">
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,10 +14,10 @@
     android:padding="16dp">
 
         <LinearLayout
+            android:id="@+id/punishment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginBottom="11dp">
@@ -21,18 +27,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="THIS IS A LITTLE PUNISHMENT."
-                android:textSize="30sp" />
+                android:textAllCaps="true"
+                android:text="@string/a_little_punishment"
+                android:textSize="30sp"
+                android:padding="5dp"/>
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="0dp"
-                android:text="Your dream is further away from you!"
+                android:text="@string/your_dream_futher"
                 android:textAllCaps="true"
-                android:textSize="60sp"
-                android:layout_weight="2.93" />
+                android:textSize="40sp"
+                android:padding="5dp"/>
 
         </LinearLayout>
 
@@ -41,9 +49,9 @@
             android:layout_height="wrap_content"
             android:paddingBottom="8dp"
             android:textSize="18sp"
-            android:text="This music will not stop until finish playing."
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:text="@string/this_music_not_stop"
+            android:layout_below="@+id/punishment"
+            android:textAllCaps="true"/>
 
     </RelativeLayout>
+</ScrollView>

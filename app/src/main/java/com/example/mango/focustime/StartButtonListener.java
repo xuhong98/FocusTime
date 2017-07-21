@@ -35,7 +35,7 @@ public class StartButtonListener implements View.OnClickListener {
     protected static Context context;
     protected static Activity activity;
     public static CountDownTimer timer;
-    private static boolean timerStarted;
+    private static boolean timerStarted = false;
 
     private final EditText second;
     private final EditText minute;
@@ -90,11 +90,11 @@ public class StartButtonListener implements View.OnClickListener {
 
     private boolean convertUserInputToTotalSecondsValid() {
         if (minute.getText().toString().equals("") && second.getText().toString().equals("")) {
-            Toast.makeText(context, "Please enter your time", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, R.string.please_enter_time, Toast.LENGTH_LONG).show();
             return false;
         } else if (minute.getText().toString().equals("")) {
             if (Integer.parseInt(second.getText().toString()) <= 0) {
-                Toast.makeText(context, "Invalid number", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.invalid_number, Toast.LENGTH_SHORT).show();
                 return false;
             } else {
                 totalSecond = Integer.parseInt(second.getText().toString());
@@ -102,7 +102,7 @@ public class StartButtonListener implements View.OnClickListener {
             }
         } else if (second.getText().toString().equals("")) {
             if (Integer.parseInt(minute.getText().toString()) <= 0) {
-                Toast.makeText(context, "Invalid number", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.invalid_number, Toast.LENGTH_SHORT).show();
                 return false;
             } else {
                 totalSecond = Integer.parseInt(minute.getText().toString()) * 60;
@@ -110,7 +110,7 @@ public class StartButtonListener implements View.OnClickListener {
             }
         } else {
             if (Integer.parseInt(minute.getText().toString()) <= 0 && Integer.parseInt(second.getText().toString()) <= 0) {
-                Toast.makeText(context, "Invalid number", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.invalid_number, Toast.LENGTH_SHORT).show();
                 return false;
             } else {
                 totalSecond = Integer.parseInt(minute.getText().toString()) * 60 + Integer.parseInt(second.getText().toString());
@@ -140,21 +140,10 @@ public class StartButtonListener implements View.OnClickListener {
 
                 minute.setText(M);
                 second.setText(S);
-
-
-
-                pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-                mBuilder = new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.icon)
-                        .setContentTitle("Time left" + ": " + m + " min " + s + " sec")
-                        .setAutoCancel(true)
-                        .setContentIntent(pendingIntent);
-                notification = mBuilder.build();
             }
 
             public void onFinish() {
-                Toast.makeText(context, "Focus mode ended! Relax for a while!", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, R.string.relax, Toast.LENGTH_LONG).show();
                 clearTimer();
             }
         };
@@ -174,7 +163,7 @@ public class StartButtonListener implements View.OnClickListener {
         startService();
 
 
-        s.setText("cancel");
+        s.setText(R.string.cancel);
 
         minute.setEnabled(false);
         minute.setClickable(false);
@@ -183,7 +172,7 @@ public class StartButtonListener implements View.OnClickListener {
         second.setEnabled(false);
         second.setClickable(false);
 
-        Toast.makeText(context, "Focus mode started!", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, R.string.mode_started, Toast.LENGTH_LONG).show();
     }
 
     private void startService() {
@@ -196,16 +185,16 @@ public class StartButtonListener implements View.OnClickListener {
     // for the postivie and negative buttons on the dialog.
     private void showAlertForQuitting() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Quit focus mode?");
-        builder.setMessage("You will be punished. Are you sure to quit?");
-        builder.setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.quit_mode);
+        builder.setMessage(R.string.sure_to_quit);
+        builder.setNegativeButton(R.string.confirm, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 clearTimer();
                 Intent intent = new Intent(context, PunishmentActivity.class);
                 context.startActivity(intent);
             }
         });
-        builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Cancel" button, so dismiss the dialog
                 // and continue editing the pet.
@@ -231,7 +220,7 @@ public class StartButtonListener implements View.OnClickListener {
         linearTimer.resetTimer();
 
         timerStarted = false;
-        s.setText("start");
+        s.setText(R.string.start_button);
 
         minute.setEnabled(true);
         minute.setClickable(true);
@@ -245,8 +234,6 @@ public class StartButtonListener implements View.OnClickListener {
         Features.showForeground = false;
         Intent i = new Intent(context, MyService.class);
         context.stopService(i);
-
-        s.setText("start");
 
         storeTotalSecondsPassed();
     }
@@ -292,9 +279,9 @@ public class StartButtonListener implements View.OnClickListener {
             AlertDialog.Builder noPermissionDialog;
 
             noPermissionDialog = new AlertDialog.Builder(context)
-                    .setTitle("Accessibility Service")
-                    .setMessage("Please turn on FocusTime accessibility service")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.accessibility)
+                    .setMessage(R.string.please_open_access)
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
@@ -303,7 +290,7 @@ public class StartButtonListener implements View.OnClickListener {
                             activity.startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
                         }
                     })
-                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
@@ -314,5 +301,4 @@ public class StartButtonListener implements View.OnClickListener {
             return;
         }
     }
-
 }

@@ -1,5 +1,6 @@
 package com.example.mango.focustime;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -14,6 +15,7 @@ import android.preference.PreferenceManager;
 public final class PreferenceUtilities {
 
     public static final String KEY_TOTAL_SECOND_RECORDED = "total-second-recorded";
+    public static final String KEY_FORCE_QUIT = "force_quit_key";
 
     private static final int DEFAULT_COUNT = 0;
 
@@ -30,11 +32,17 @@ public final class PreferenceUtilities {
         return TotalSecondRecorded;
     }
 
-//    synchronized public static void setCamera(Context context, boolean usable) {
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-//        SharedPreferences.Editor editor = prefs.edit();
-//        editor.putBoolean(getString(R.string.pref_motto_key), usable);
-//        editor.apply();
-//    }
+    synchronized public static void setForceQuit(Context context, boolean usable) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(KEY_FORCE_QUIT, usable);
+        editor.apply();
+    }
+
+    public static boolean getForceQuit(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        boolean forceQuit = prefs.getBoolean(KEY_FORCE_QUIT, false);
+        return forceQuit;
+    }
 
 }

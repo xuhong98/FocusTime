@@ -18,17 +18,17 @@
 
     <item
         android:id="@+id/todo"
-        android:title="todo"
+        android:title="@string/todo"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/settings"
-        android:title="Settings"
+        android:title="@string/settings"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/how_to_use"
-        android:title="How to use?"
+        android:title="@string/how_to_use"
         app:showAsAction="never" />
 
 </menu>

@@ -14,6 +14,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.example.mango.focustime.PreferenceUtilities;
+import com.example.mango.focustime.StartButtonListener;
+
 
 /**
  * Created by chenxiaoman on 1/7/17.
@@ -30,38 +33,15 @@ public class MyApplication extends Application {
     }
 
     public static void activityPaused() {
-//        if (StartButtonListener.FocusModeStarted()) {
-//            // Create an AlertDialog.Builder and set the message, and click listeners
-//            // for the postivie and negative buttons on the dialog.
-//
-//            final CountDownTimer timer = StartButtonListener.timer;
-//            final Context context = StartButtonListener.context;
-//            final Button s = (Button) StartButtonListener.activity.findViewById(R.id.start);
-//            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//            builder.setTitle("Quit focus mode?");
-//            builder.setMessage("You will be punished. Are you sure to quit?");
-//            builder.setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
-//                public void onClick(DialogInterface dialog, int id) {
-//                    timer.cancel();
-//                    s.setText("start");
-//                    Intent intent = new Intent(context, PunishmentActivity.class);
-//                    context.startActivity(intent);
-//                }
-//            });
-//            builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-//                public void onClick(DialogInterface dialog, int id) {
-//                    // User clicked the "Cancel" button, so dismiss the dialog
-//                    // and continue editing the pet.
-//                    if (dialog != null) {
-//                        dialog.dismiss();
-//                    }
-//                }
-//            });
-//
-//            // Create and show the AlertDialog
-//            AlertDialog alertDialog = builder.create();
-//            alertDialog.show();
-//        }
+
+    }
+
+    public static void activityDestroy(Context context) {
+        if (StartButtonListener.FocusModeStarted()) {
+            PreferenceUtilities.setForceQuit(context, true);
+            Log.v("MyApplication", "set force quit true");
+        }
+        Log.v("MyApplication", "set force quit true");
     }
 
 

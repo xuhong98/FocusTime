@@ -18,6 +18,6 @@
 
     <item
         android:id="@+id/action_delete_all_entries"
-        android:title="Delete all entries"
+        android:title="@string/delete_all_entries"
         app:showAsAction="never" />
 </menu>

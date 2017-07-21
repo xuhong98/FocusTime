@@ -66,7 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorSecondary"
-                    android:text="start"
+                    android:text="@string/start_button"
                     android:textColor="#000" />
             </LinearLayout>
 
@@ -101,14 +101,14 @@
             android:fontFamily="sans-serif-condensed"
             android:layout_below="@id/motto"
             android:textColor="@color/colorPrimaryDark"
-            android:text="You have already focused for"
+            android:text="@string/you_have_alr_focused"
             android:layout_centerHorizontal="true"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/you_have_focused"
             android:id="@+id/totalFocusedTime"
-            android:text=" 10days, 3hour, 2min and 19sec"
+            android:text="@string/total_time_summary"
             android:layout_centerHorizontal="true"
             android:textSize="16dp"
             android:textColor="@color/colorPrimaryDark"

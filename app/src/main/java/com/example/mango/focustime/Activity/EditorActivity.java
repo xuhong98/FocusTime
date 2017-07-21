@@ -42,6 +42,7 @@ import android.widget.Toast;
 
 import com.example.mango.focustime.R;
 import com.example.mango.focustime.data.TodoContract.TodoEntry;
+import com.example.mango.focustime.service.MyApplication;
 
 /**
  * Allows user to create a new to_do item or edit an existing one.
@@ -88,14 +89,14 @@ public class EditorActivity extends AppCompatActivity implements
         // creating a new pet.
         if (mCurrentPetUri == null) {
             // This is a new pet, so change the app bar to say "Add a Pet"
-            setTitle("Add new todo");
+            setTitle(R.string.add_todo);
 
             // Invalidate the options menu, so the "Delete" menu option can be hidden.
             // (It doesn't make sense to delete a pet that hasn't been created yet.)
             invalidateOptionsMenu();
         } else {
             // Otherwise this is an existing pet, so change app bar to say "Edit Pet"
-            setTitle("Edit todo");
+            setTitle(R.string.edit_todo);
 
             // Initialize a loader to read the pet data from the database
             // and display the current values in the editor
@@ -170,11 +171,11 @@ public class EditorActivity extends AppCompatActivity implements
             // Show a toast message depending on whether or not the insertion was successful.
             if (newUri == null) {
                 // If the new content URI is null, then there was an error with insertion.
-                Toast.makeText(this, "Insert pet failed",
+                Toast.makeText(this, R.string.insert_fail,
                         Toast.LENGTH_SHORT).show();
             } else {
                 // Otherwise, the insertion was successful and we can display a toast.
-                Toast.makeText(this, "Insert successful",
+                Toast.makeText(this, R.string.insert_suc,
                         Toast.LENGTH_SHORT).show();
             }
         } else {
@@ -187,11 +188,11 @@ public class EditorActivity extends AppCompatActivity implements
             // Show a toast message depending on whether or not the update was successful.
             if (rowsAffected == 0) {
                 // If no rows were affected, then there was an error with the update.
-                Toast.makeText(this, "Edit failed",
+                Toast.makeText(this, R.string.edit_fail,
                         Toast.LENGTH_SHORT).show();
             } else {
                 // Otherwise, the update was successful and we can display a toast.
-                Toast.makeText(this, "Edit successful",
+                Toast.makeText(this, R.string.edit_suc,
                         Toast.LENGTH_SHORT).show();
             }
         }
@@ -269,11 +270,11 @@ public class EditorActivity extends AppCompatActivity implements
             // Show a toast message depending on whether or not the delete was successful.
             if (rowsDeleted == 0) {
                 // If no rows were deleted, then there was an error with the delete.
-                Toast.makeText(this, "Delete failed",
+                Toast.makeText(this, R.string.del_fail,
                         Toast.LENGTH_SHORT).show();
             } else {
                 // Otherwise, the delete was successful and we can display a toast.
-                Toast.makeText(this, "Delete successful",
+                Toast.makeText(this, R.string.del_suc,
                         Toast.LENGTH_SHORT).show();
             }
         }
@@ -293,17 +294,23 @@ public class EditorActivity extends AppCompatActivity implements
             // Show a toast message depending on whether or not the delete was successful.
             if (rowsDeleted == 0) {
                 // If no rows were deleted, then there was an error with the delete.
-                Toast.makeText(context, "Delete failed",
+                Toast.makeText(context, R.string.del_fail,
                         Toast.LENGTH_SHORT).show();
             } else {
                 // Otherwise, the delete was successful and we can display a toast.
-                Toast.makeText(context, "Delete successful",
+                Toast.makeText(context, R.string.del_suc,
                         Toast.LENGTH_SHORT).show();
             }
         }
 
         // Close the activity
         finish();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MyApplication.activityDestroy(this);
     }
 
 }

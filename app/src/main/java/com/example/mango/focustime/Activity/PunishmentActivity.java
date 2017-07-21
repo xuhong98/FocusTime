@@ -40,7 +40,7 @@ public class PunishmentActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Toast.makeText(getApplicationContext(), " You cannot stop the music. Enjoy the punishment.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), R.string.cannot_exit, Toast.LENGTH_SHORT).show();
     }
 
 }

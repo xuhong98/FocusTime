@@ -84,40 +84,11 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
         linearTimerView.setCircleRadiusInDp(width / 7);
 
         setupSharedPreferences();
 
-
-
-        final SharedPreferences.Editor editor1 = sharedPreferences.edit();
-        String time_set = sharedPreferences.getString("time", "设置提醒");
-
-        Intent intent = new Intent();
-        intent.setAction(this.getString(R.string.alarm_goes_off));
-        final PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-        final AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-        final Button btnAlarmSet = (Button) findViewById(R.id.btn_alarm_set);
-        btnAlarmSet.setText(time_set);
-        btnAlarmSet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        Button btnAlarmCancel = (Button) findViewById(R.id.btn_alarm_cancel);
-        btnAlarmCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btnAlarmSet.setText("设置提醒");
-                editor1.putString("time", "设置提醒");
-                editor1.commit();
-                alarmManager.cancel(pendingIntent);
-            }
-        });
     }
 
     @Override
@@ -173,10 +144,11 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
         Intent intent = new Intent(mContext, MyService.class);
         mContext.stopService(intent);
 
-
         // Unregister VisualizerActivity as an OnPreferenceChangedListener to avoid any memory leaks.
         PreferenceManager.getDefaultSharedPreferences(this)
                 .unregisterOnSharedPreferenceChangeListener(this);
+
+        MyApplication.activityDestroy(this);
     }
 
 
@@ -225,7 +197,7 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
         long min = totalSecondRecorded / 60;
         totalSecondRecorded -= min * 60;
         long sec = totalSecondRecorded;
-        String record = "" + day + "days, " + hour + "hour, " + min + "min and " + sec + "sec";
+        String record = getString(R.string.total_time_summary, day+"", hour+"", min+"", sec+"");
         TVtotalFocusedTime.setText(record);
     }
 

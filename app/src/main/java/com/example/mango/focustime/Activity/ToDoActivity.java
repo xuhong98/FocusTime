@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.mango.focustime.R;
+import com.example.mango.focustime.service.MyApplication;
 import com.example.mango.focustime.service.SwipeDetector;
 import com.example.mango.focustime.data.TodoCursorAdapter;
 import com.example.mango.focustime.data.TodoContract;
@@ -141,14 +142,14 @@ ToDoActivity extends AppCompatActivity implements
         // Create an AlertDialog.Builder and set the message, and click listeners
         // for the postivie and negative buttons on the dialog.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Delete all Todo items?");
-        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+        builder.setMessage(R.string.delete_all);
+        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Delete" button, so delete the pet.
                 deleteAll();
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Cancel" button, so dismiss the dialog
                 // and continue editing the pet.
@@ -193,5 +194,9 @@ ToDoActivity extends AppCompatActivity implements
         mCursorAdapter.swapCursor(null);
     }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MyApplication.activityDestroy(this);
+    }
 }

@@ -17,6 +17,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.mango.focustime.R;
+import com.example.mango.focustime.service.MyApplication;
 import com.example.mango.focustime.service.MyService;
 
 import java.util.Calendar;
@@ -89,59 +90,13 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
         }
     }
 
-
-//    private void setReminder() {
-//        final SharedPreferences.Editor editor1 = sharedPreferences.edit();
-//        String time_set = sharedPreferences.getString("time", "设置提醒");
-//
-//        Intent intent = new Intent();
-//        intent.setAction(this.getString(R.string.alarm_goes_off));
-//        final PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, intent, 0);
-//        final AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
-//
-//        Date date = new Date();
-//        calendar.setTime(date);
-//        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-//        int minute = calendar.get(Calendar.MINUTE);
-//        new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
-//            @Override
-//            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-//                Toast.makeText(getContext(), "@string/successfully_set_reminder", Toast.LENGTH_SHORT).show();
-//                if (hourOfDay < 10 && minute < 10) {
-//                    String time = " 0" + hourOfDay + ":0" + minute + " ";
-//                    preferenceReminder.setSummary("On:" + time);
-//                    editor1.putString("time", time);
-//                    editor1.commit();
-//                } else if (hourOfDay >= 10 && minute < 10) {
-//                    String time = " " + hourOfDay + ":0" + minute + " ";
-//                    preferenceReminder.setSummary("On:" + time);
-//                    editor1.putString("time", time);
-//                    editor1.commit();
-//                } else if (hourOfDay < 10 && minute >= 10) {
-//                    String time = " 0" + hourOfDay + ":" + minute + " ";
-//                    preferenceReminder.setSummary("On:" + time);
-//                    editor1.putString("time", time);
-//                    editor1.commit();
-//                } else {
-//                    String time = " " + hourOfDay + ":" + minute + " ";
-//                    preferenceReminder.setSummary("On:" + time);
-//                    editor1.putString("time", time);
-//                    editor1.commit();
-//                }
-//                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-//                calendar.set(Calendar.MINUTE, minute);
-//                calendar.set(Calendar.SECOND, 0);
-//                Log.d(".......", "当前时间:" + calendar.getTime() + "||" + calendar.getTimeInMillis());
-//                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-//            }
-//        }, hour, minute, true).show();
-//    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         // Unregister VisualizerActivity as an OnPreferenceChangedListener to avoid any memory leaks.
         PreferenceManager.getDefaultSharedPreferences(this)
                 .unregisterOnSharedPreferenceChangeListener(this);
+        MyApplication.activityDestroy(this);
     }
+
 }

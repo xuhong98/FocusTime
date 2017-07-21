@@ -127,6 +127,7 @@ public class MyService extends Service {
         usableApps.add("com.android.systemui");
         usableApps.add("com.android.launcher3");
         usableApps.add("com.android.settings");
+        usableApps.add("com.android.inputmethod.latin");
     }
 
     private boolean isKillableApp(String name) {
@@ -153,16 +154,16 @@ public class MyService extends Service {
         if (currentForegroundPackageName != null && isKillableApp(currentForegroundPackageName)) {
 
             if (phoneUsable && isPhone(currentForegroundPackageName)) {
-                Toast.makeText(getApplicationContext(), "Phone is allowed during FocusTime", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.phone_allow, Toast.LENGTH_SHORT).show();
                 Log.v(currentForegroundPackageName, "Phone is usable");
             } else if (calculatorUsable && isCalculator(currentForegroundPackageName)) {
-                Toast.makeText(getApplicationContext(), "Calculator is allowed during FocusTime", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.cal_allow, Toast.LENGTH_SHORT).show();
                 Log.v(currentForegroundPackageName, "calculator is usable");
             } else if (cameraUsable && isCamera(currentForegroundPackageName)) {
-                Toast.makeText(getApplicationContext(), "Camera is allowed during FocusTime", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.camera_allow, Toast.LENGTH_SHORT).show();
                 Log.v(currentForegroundPackageName, "camera is usable");
             } else if (calendarUsable && isCalendar(currentForegroundPackageName)) {
-                Toast.makeText(getApplicationContext(), "Calendar is allowed during FocusTime", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.calen_allow, Toast.LENGTH_SHORT).show();
                 Log.v(currentForegroundPackageName, "calendar is usable");
             } else {
 
@@ -175,7 +176,7 @@ public class MyService extends Service {
 
                 am.killBackgroundProcesses(currentForegroundPackageName);
 
-                Toast.makeText(getApplicationContext(), "You can't open this app during FocusTime", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.cannot_open_app, Toast.LENGTH_SHORT).show();
             }
         } else {
             Log.v("MyService", "Not killing " + currentForegroundPackageName);
