@@ -24,8 +24,10 @@ import com.example.mango.focustime.processutil.BackgroundUtil;
 
 import java.util.ArrayList;
 
+import static com.example.mango.focustime.R.drawable.calendar;
+
 /**
- * Created by wenmingvs on 2016/1/13.
+ * Created by chenxiaoman on 2017/6/13.
  */
 public class MyService extends Service {
 
@@ -43,6 +45,11 @@ public class MyService extends Service {
     private ArrayList<String> usableApps = new ArrayList<>();
 
     private PackageManager mPackageManager = null;
+
+    private static boolean phoneUsable;
+    private static boolean cameraUsable;
+    private static boolean calculatorUsable;
+    private static boolean calendarUsable;
 
 
     @Override
@@ -119,12 +126,11 @@ public class MyService extends Service {
     private void setUsableApps() {
         usableApps.add("com.android.systemui");
         usableApps.add("com.android.launcher3");
-        usableApps.add("com.android.dialer");
         usableApps.add("com.android.settings");
     }
 
     private boolean isKillableApp(String name) {
-        for(int i = 0; i < usableApps.size(); i++) {
+        for (int i = 0; i < usableApps.size(); i++) {
             if (usableApps.get(i).equals(name)) {
                 Log.v(name, "is not killable");
                 return false;
@@ -135,26 +141,72 @@ public class MyService extends Service {
     }
 
 
-
     private void killApps() {
         ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         String currentForegroundPackageName = DetectionService.getForegroundPackageName();
 
-        if(currentForegroundPackageName != null && isKillableApp(currentForegroundPackageName)) {
+        if (currentForegroundPackageName != null && isKillableApp(currentForegroundPackageName)) {
 
-            Log.v("MyService", "Killing " + currentForegroundPackageName);
+            if (phoneUsable && isPhone(currentForegroundPackageName)) {
+                Log.v(currentForegroundPackageName, "Phone is usable");
+            } else if (calculatorUsable && isCalculator(currentForegroundPackageName)) {
+                Log.v(currentForegroundPackageName, "calculator is usable");
+            } else if (cameraUsable && isCamera(currentForegroundPackageName)) {
+                Log.v(currentForegroundPackageName, "camera is usable");
+            } else if (calendarUsable && isCalendar(currentForegroundPackageName)) {
+                Log.v(currentForegroundPackageName, "calendar is usable");
+            } else {
 
-            Intent startMain = new Intent(Intent.ACTION_MAIN);
-            startMain.addCategory(Intent.CATEGORY_HOME);
-            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            this.startActivity(startMain);
+                Log.v("MyService", "Killing " + currentForegroundPackageName);
 
-            am.killBackgroundProcesses(currentForegroundPackageName);
+                Log.v("Phone usable ", "" + phoneUsable);
+                Log.v("Camera usable ", "" + cameraUsable);
+                Log.v("Calculator usable ", "" + calculatorUsable);
+                Log.v("Calendar usable ", "" + calendarUsable);
 
-            Toast.makeText(getApplicationContext(), "You can't open this app during FocusTime", Toast.LENGTH_SHORT).show();
+                Intent startMain = new Intent(Intent.ACTION_MAIN);
+                startMain.addCategory(Intent.CATEGORY_HOME);
+                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                this.startActivity(startMain);
+
+                am.killBackgroundProcesses(currentForegroundPackageName);
+
+                Toast.makeText(getApplicationContext(), "You can't open this app during FocusTime", Toast.LENGTH_SHORT).show();
+            }
         } else {
             Log.v("MyService", "Not killing " + currentForegroundPackageName);
         }
     }
 
+    private boolean isPhone(String packageName) {
+        return false;
+    }
+
+    private boolean isCamera(String packageName) {
+        return false;
+    }
+
+    private boolean isCalendar(String packageName) {
+        return false;
+    }
+
+    private boolean isCalculator(String packageName) {
+        return false;
+    }
+
+    public static void setPhoneUsable(boolean phUsable) {
+        phoneUsable = phUsable;
+    }
+
+    public static void setCameraUsable(boolean cameUsable) {
+        cameraUsable = cameUsable;
+    }
+
+    public static void setCalculatorUsable(boolean calculUsable) {
+        calculatorUsable = calculUsable;
+    }
+
+    public static void setCalendarUsable(boolean calenUsable) {
+        calendarUsable = calenUsable;
+    }
 }

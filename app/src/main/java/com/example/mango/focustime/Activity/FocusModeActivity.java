@@ -105,44 +105,7 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
         btnAlarmSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Date date = new Date();
-                calendar.setTime(date);
-                int hour = calendar.get(Calendar.HOUR_OF_DAY);
-                int minute = calendar.get(Calendar.MINUTE);
-                new TimePickerDialog(FocusModeActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        Toast toast = Toast.makeText(FocusModeActivity.this, "设置提醒成功", Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
-                        if (hourOfDay < 10 && minute < 10) {
-                            String time = " 0" + hourOfDay + ":0" + minute + " ";
-                            btnAlarmSet.setText(time);
-                            editor1.putString("time", time);
-                            editor1.commit();
-                        } else if (hourOfDay >= 10 && minute < 10) {
-                            String time = " " + hourOfDay + ":0" + minute + " ";
-                            btnAlarmSet.setText(time);
-                            editor1.putString("time", time);
-                            editor1.commit();
-                        } else if (hourOfDay < 10 && minute >= 10) {
-                            String time = " 0" + hourOfDay + ":" + minute + " ";
-                            btnAlarmSet.setText(time);
-                            editor1.putString("time", time);
-                            editor1.commit();
-                        } else {
-                            String time = " " + hourOfDay + ":" + minute + " ";
-                            btnAlarmSet.setText(time);
-                            editor1.putString("time", time);
-                            editor1.commit();
-                        }
-                        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                        calendar.set(Calendar.MINUTE, minute);
-                        calendar.set(Calendar.SECOND, 0);
-                        Log.d(".......", "当前时间:" + calendar.getTime() + "||" + calendar.getTimeInMillis());
-                        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-                    }
-                }, hour, minute, true).show();
+
             }
         });
         Button btnAlarmCancel = (Button) findViewById(R.id.btn_alarm_cancel);
@@ -194,6 +157,7 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
 
         loadMottoFromSharedPreferences(sharedPreferences);
         updateTotalSecondsRecorded();
+        loadUsableAppsSharedPreference();
     }
 
     @Override
@@ -263,6 +227,33 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
         long sec = totalSecondRecorded;
         String record = "" + day + "days, " + hour + "hour, " + min + "min and " + sec + "sec";
         TVtotalFocusedTime.setText(record);
+    }
+
+    private void loadUsableAppsSharedPreference() {
+        loadPhoneFromPreferences(sharedPreferences);
+        loadCameraFromPreferences(sharedPreferences);
+        loadCalculatorFromPreferences(sharedPreferences);
+        loadCalendarFromPreferences(sharedPreferences);
+    }
+
+    private void loadPhoneFromPreferences(SharedPreferences sharedPreferences) {
+        MyService.setPhoneUsable(sharedPreferences.getBoolean(getString(R.string.pref_phone_key),
+                true));
+    }
+
+    private void loadCameraFromPreferences(SharedPreferences sharedPreferences) {
+        MyService.setCameraUsable(sharedPreferences.getBoolean(getString(R.string.pref_camera_key),
+                true));
+    }
+
+    private void loadCalculatorFromPreferences(SharedPreferences sharedPreferences) {
+        MyService.setCalculatorUsable(sharedPreferences.getBoolean(getString(R.string.pref_cal_key),
+                true));
+    }
+
+    private void loadCalendarFromPreferences(SharedPreferences sharedPreferences) {
+        MyService.setCalendarUsable(sharedPreferences.getBoolean(getString(R.string.pref_calendar_key),
+                true));
     }
 
 }

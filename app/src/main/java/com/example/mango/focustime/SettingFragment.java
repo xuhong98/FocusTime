@@ -1,5 +1,9 @@
 package com.example.mango.focustime;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
@@ -10,7 +14,18 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
 import android.util.Log;
+import android.view.Gravity;
+import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.example.mango.focustime.Activity.FocusModeActivity;
+import com.example.mango.focustime.service.MyService;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
+import static android.content.Context.ALARM_SERVICE;
 
 /**
  * Created by chenxiaoman on 17/7/17.
@@ -19,13 +34,16 @@ import android.widget.Toast;
 public class SettingFragment extends PreferenceFragmentCompat implements
         OnSharedPreferenceChangeListener, Preference.OnPreferenceChangeListener {
 
+    private Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
+    private SharedPreferences sharedPreferences;
+
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
 
         // Add visualizer preferences, defined in the XML file in res->xml->pref_visualizer
         addPreferencesFromResource(R.xml.pref);
 
-        SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
+        sharedPreferences = getPreferenceScreen().getSharedPreferences();
         PreferenceScreen prefScreen = getPreferenceScreen();
         int count = prefScreen.getPreferenceCount();
 
@@ -40,26 +58,13 @@ public class SettingFragment extends PreferenceFragmentCompat implements
             }
         }
 
-        Preference preference = findPreference(getString(R.string.pref_motto_key));
-        preference.setOnPreferenceChangeListener(this);
-        setPreferenceSummary(preference, sharedPreferences.getString(getResources().getString(R.string.pref_motto_key), getResources().getString(R.string.pref_motto_default)));
-
-        Preference preferenceReminder = findPreference(getString(R.string.pref_reminder_key));
-        preference.setOnPreferenceChangeListener(this);
-
-        Preference preferenceCamera = findPreference(getString(R.string.pref_camera_key));
-        preference.setOnPreferenceChangeListener(this);
-
-        Preference preferenceCalculator = findPreference(getString(R.string.pref_cal_key));
-        preference.setOnPreferenceChangeListener(this);
-
-        Preference preferenceCalendar = findPreference(getString(R.string.pref_calendar_key));
-        preference.setOnPreferenceChangeListener(this);
-
-        Preference preferencePhone = findPreference(getString(R.string.pref_phone_key));
-        preference.setOnPreferenceChangeListener(this);
+        Preference preferenceMotto = findPreference(getString(R.string.pref_motto_key));
+        preferenceMotto.setOnPreferenceChangeListener(this);
+        setPreferenceSummary(preferenceMotto, sharedPreferences.getString(getResources().getString(R.string.pref_motto_key), getResources().getString(R.string.pref_motto_default)));
 
     }
+
+
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -107,20 +112,11 @@ public class SettingFragment extends PreferenceFragmentCompat implements
                 Toast.makeText(getContext(), "Motto set", Toast.LENGTH_SHORT).show();
                 return true;
             }
-        } else if (preference.getKey().equals(getString(R.string.pref_phone_key))) {
-            boolean usable = (boolean) newValue;
-        } else if (preference.getKey().equals(getString(R.string.pref_camera_key))) {
-            boolean usable = (boolean) newValue;
-        } else if (preference.getKey().equals(getString(R.string.pref_calendar_key))) {
-            boolean usable = (boolean) newValue;
-        } else if (preference.getKey().equals(getString(R.string.pref_cal_key))) {
-            boolean usable = (boolean) newValue;
-        } else if (preference.getKey().equals(getString(R.string.pref_reminder_key))) {
-            boolean setReminder = (boolean) newValue;
         }
         return false;
 
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

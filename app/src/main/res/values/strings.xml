@@ -44,4 +44,6 @@
     <string name="pref_reminder_label">Set reminder</string>
 
     <string name="pref_reminder_key" translatable="false">reminder_key</string>
+
+    <string name="successfully_set_reminder">successfully set FocusTime reminder</string>
 </resources>
