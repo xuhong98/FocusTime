@@ -1,7 +1,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">FocusTime</string>
 
-    <string name="content6">使用辅助功能探测当前窗口变化</string>
+    <string name="content6" translatable="false">使用辅助功能探测当前窗口变化</string>
 
     <string name="detection_service_des">This service helps to detect any apps that is on the foreground. \nPlease enable it so that FocusTime can function normally.</string>
 
@@ -45,9 +45,9 @@
 
     <string name="pref_reminder_key" translatable="false">reminder_key</string>
 
-    <string name="successfully_set_reminder">successfully set FocusTime reminder</string>
+    <string name="successfully_set_reminder">Successfully set FocusTime reminder</string>
 
-    <string name="pref_force_quit_key">force_quit_key</string>
+    <string name="pref_force_quit_key" translatable="false">force_quit_key</string>
 
     <string name="start_button">start</string>
     <string name="cancel">Cancel</string>

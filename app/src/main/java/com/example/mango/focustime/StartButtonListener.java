@@ -70,7 +70,7 @@ public class StartButtonListener implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
-        if (s.getText().equals("start")) {
+        if (s.getText().equals(context.getResources().getString(R.string.start_button))) {
 
             if (convertUserInputToTotalSecondsValid()) {
                 if (isAccessibilitySettingsOn(context)) {
