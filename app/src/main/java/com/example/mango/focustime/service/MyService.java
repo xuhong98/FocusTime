@@ -43,8 +43,7 @@ public class MyService extends Service {
     private BroadcastReceiver mScreenOffReceiver;
     private ActivityManager am;
 
-    private static ArrayList<String> usableApps = new ArrayList<>();
-    private ArrayList<String> usableKeywords = new ArrayList<>();
+    private static ArrayList<String> blackListApps = new ArrayList<>();
 
     private PackageManager mPackageManager = null;
 
@@ -61,8 +60,7 @@ public class MyService extends Service {
         mContext = this;
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        startNotification();
-        setUsableAppsAndKeyWords();
+        //startNotification();
     }
 
     @Override
@@ -77,7 +75,7 @@ public class MyService extends Service {
                 Intent i = new Intent(mContext, MyReceiver.class);
                 PendingIntent pi = PendingIntent.getBroadcast(mContext, 0, i, 0);
                 manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, pi);
-                updateNotification();
+                //updateNotification();
                 if (!getAppStatus()) {
                     killApps();
                 }
@@ -102,52 +100,37 @@ public class MyService extends Service {
         return BackgroundUtil.isForeground(mContext, Features.BGK_METHOD, mContext.getPackageName());
     }
 
-    private void startNotification() {
-        mIntent = new Intent(mContext, FocusModeActivity.class);
-        pendingIntent = PendingIntent.getActivity(mContext, 0, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder = new NotificationCompat.Builder(mContext)
-                .setSmallIcon(R.drawable.icon)
-                .setContentTitle("App处于" + ": " + DetectionService.getForegroundPackageName())
-                .setAutoCancel(true)
-                .setContentIntent(pendingIntent);
-        notification = mBuilder.build();
-        startForeground(NOTICATION_ID, notification);
-    }
+//    private void startNotification() {
+//        mIntent = new Intent(mContext, FocusModeActivity.class);
+//        pendingIntent = PendingIntent.getActivity(mContext, 0, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        mBuilder = new NotificationCompat.Builder(mContext)
+//                .setSmallIcon(R.drawable.icon)
+//                .setContentTitle("App处于" + ": " + DetectionService.getForegroundPackageName())
+//                .setAutoCancel(true)
+//                .setContentIntent(pendingIntent);
+//        notification = mBuilder.build();
+//        startForeground(NOTICATION_ID, notification);
+//    }
 
-    private void updateNotification() {
-        if (!DetectionService.getForegroundPackageName().equals("com.android.systemui")) {
-            mBuilder.setContentTitle("App处于" + ": " + DetectionService.getForegroundPackageName());
-            mBuilder.setContentText("...");
-            notification = mBuilder.build();
-            mNotificationManager.notify(NOTICATION_ID, notification);
-        }
-    }
+//    private void updateNotification() {
+//        if (!DetectionService.getForegroundPackageName().equals("com.android.systemui")) {
+//            mBuilder.setContentTitle("App处于" + ": " + DetectionService.getForegroundPackageName());
+//            mBuilder.setContentText("...");
+//            notification = mBuilder.build();
+//            mNotificationManager.notify(NOTICATION_ID, notification);
+//        }
+//    }
 
-    private void setUsableAppsAndKeyWords() {
-        usableApps.add("com.android.systemui");
-        usableApps.add("com.android.settings");
-
-        usableKeywords.add("input");
-        usableKeywords.add("launcher");
-    }
 
     private boolean isKillableApp(String currentForegroundPackageName) {
-        for (int i = 0; i < usableApps.size(); i++) {
-            if (usableApps.get(i).equals(currentForegroundPackageName)) {
-                Log.v(currentForegroundPackageName, "is not killable");
-                return false;
+        for (int i = 0; i < blackListApps.size(); i++) {
+            if (blackListApps.get(i).equals(currentForegroundPackageName)) {
+                Log.v(currentForegroundPackageName, "is killable");
+                return true;
             }
         }
-
-        for (int i = 0; i < usableKeywords.size(); i++) {
-            if (currentForegroundPackageName.contains(usableKeywords.get(i))) {
-                Log.v(currentForegroundPackageName, "is not killable");
-                return false;
-            }
-        }
-
-        Log.v(currentForegroundPackageName, "is killable");
-        return true;
+        Log.v(currentForegroundPackageName, "is not killable");
+        return false;
     }
 
 
@@ -171,22 +154,22 @@ public class MyService extends Service {
         }
     }
 
-    public static void changeUsableApps(String packagename, boolean usable) {
-        if (usable) {
-            addUsableApps(packagename);
+    public static void changeBlacklistApps(String packagename, boolean inBlacklist) {
+        if (inBlacklist) {
+            addBlacklistApps(packagename);
         } else {
-            removeUsableApps(packagename);
+            removeBlacklistApps(packagename);
         }
     }
 
-    private static void addUsableApps(String packagename) {
+    private static void addBlacklistApps(String packagename) {
         Log.v("MyService", "Add " + packagename);
-        usableApps.add(packagename);
+        blackListApps.add(packagename);
     }
 
-    private static void removeUsableApps(String packagename) {
+    private static void removeBlacklistApps(String packagename) {
         Log.v("MyService", "remove " + packagename);
-        usableApps.remove(packagename);
+        blackListApps.remove(packagename);
     }
 
 

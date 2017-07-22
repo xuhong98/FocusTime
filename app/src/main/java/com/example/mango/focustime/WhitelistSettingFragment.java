@@ -45,21 +45,14 @@ public class WhitelistSettingFragment extends PreferenceFragmentCompat implement
     private PreferenceCategory preferenceCategory;
     private PackageManager pm;
     private List<ApplicationInfo> apps;
-    private static ArrayList<String> appsPackageNames;
 
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
-
-        appsPackageNames = new ArrayList<>();
 
         // Add visualizer preferences, defined in the XML file in res->xml->pref_visualizer
         addPreferencesFromResource(R.xml.pref_usable_apps);
 
         sharedPreferences = getPreferenceScreen().getSharedPreferences();
-
-//        Preference preferenceMotto = findPreference(getString(R.string.pref_motto_key));
-//        preferenceMotto.setOnPreferenceChangeListener(this);
-//        setPreferenceSummary(preferenceMotto, sharedPreferences.getString(getResources().getString(R.string.pref_motto_key), getResources().getString(R.string.pref_motto_default)));
 
         preferenceCategory = (PreferenceCategory) findPreference(getString(R.string.pref_app_you_want_key));
 
@@ -71,15 +64,15 @@ public class WhitelistSettingFragment extends PreferenceFragmentCompat implement
 
         pm = getActivity().getPackageManager();
         apps = pm.getInstalledApplications(0);
-        for(ApplicationInfo app : apps) {
-
-                String label = (String)pm.getApplicationLabel(app);
+        for (ApplicationInfo app : apps) {
+            if ((app.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0 || (app.flags & ApplicationInfo.FLAG_SYSTEM) == 0)
+            {
+                String label = (String) pm.getApplicationLabel(app);
                 Drawable icon = pm.getApplicationIcon(app);
                 String packageName = app.packageName;
 
                 CheckBoxPreference checkBoxPref = new CheckBoxPreference(getContext());
                 checkBoxPref.setTitle(label);
-                appsPackageNames.add(packageName);
                 checkBoxPref.setKey(packageName);
                 checkBoxPref.setSummaryOn(R.string.pref_on);
                 checkBoxPref.setSummaryOff(R.string.pref_off);
@@ -87,19 +80,24 @@ public class WhitelistSettingFragment extends PreferenceFragmentCompat implement
                 checkBoxPref.setChecked(false);
 
                 preferenceCategory.addPreference(checkBoxPref);
+            }
         }
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        boolean usable = (boolean) newValue;
-        MyService.changeUsableApps(preference.getKey(), usable);
         return true;
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-
+        boolean inBlacklist = sharedPreferences.getBoolean(key, false);
+        MyService.changeBlacklistApps(key, inBlacklist);
+        if (inBlacklist) {
+            Log.v("Whitelist", "in blacklist " + key);
+        } else {
+            Log.v("Whitelist", "Not in blacklist " + key);
+        }
     }
 
     @Override
@@ -116,7 +114,4 @@ public class WhitelistSettingFragment extends PreferenceFragmentCompat implement
                 .unregisterOnSharedPreferenceChangeListener(this);
     }
 
-    public static ArrayList<String> getAppsPackageName() {
-        return appsPackageNames;
-    }
 }

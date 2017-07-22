@@ -62,7 +62,7 @@
             android:label="@string/settings"
             android:parentActivityName=".Activity.FocusModeActivity" />
         <activity android:name=".Activity.WhiteListActivity"
-            android:label="@string/whitelist"
+            android:label="@string/blacklist"
             android:parentActivityName=".Activity.FocusModeActivity"></activity>
     </application>
 

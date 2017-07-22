@@ -23,7 +23,7 @@
 
     <item
     android:id="@+id/whitelist"
-    android:title="@string/whitelist"
+    android:title="@string/blacklist"
     app:showAsAction="never" />
 
     <item

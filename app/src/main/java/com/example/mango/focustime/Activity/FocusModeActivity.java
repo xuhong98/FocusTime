@@ -127,7 +127,6 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
 
         loadMottoFromSharedPreferences(sharedPreferences);
         updateTotalSecondsRecorded();
-        loadUsableApps();
     }
 
     @Override
@@ -202,13 +201,6 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
         long sec = totalSecondRecorded;
         String record = getString(R.string.total_time_summary, day + "", hour + "", min + "", sec + "");
         TVtotalFocusedTime.setText(record);
-    }
-
-    private void loadUsableApps() {
-//        ArrayList<String> allPackageName = WhitelistSettingFragment.getAppsPackageName();
-//        for(String app : allPackageName) {
-//            MyService.changeUsableApps(app, sharedPreferences.getBoolean(app, false));
-//        }
     }
 
 }
