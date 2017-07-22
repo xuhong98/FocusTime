@@ -28,8 +28,10 @@ import com.example.mango.focustime.service.MyService;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import static android.R.attr.label;
 import static android.content.Context.ALARM_SERVICE;
@@ -92,12 +94,21 @@ public class WhitelistSettingFragment extends PreferenceFragmentCompat implement
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         boolean inBlacklist = sharedPreferences.getBoolean(key, false);
-        MyService.changeBlacklistApps(key, inBlacklist);
+        changeBlacklistApps(key, inBlacklist);
+    }
+
+    private void changeBlacklistApps(String key, boolean inBlacklist) {
+        Set<String> blackListApps = sharedPreferences.getStringSet(PreferenceUtilities.KEY_BLACKLIST_APPS, new HashSet<String>());
         if (inBlacklist) {
+            blackListApps.add(key);
             Log.v("Whitelist", "in blacklist " + key);
         } else {
+            blackListApps.remove(key);
             Log.v("Whitelist", "Not in blacklist " + key);
         }
+
+        PreferenceUtilities.setBlacklistApps(getContext(), blackListApps);
+
     }
 
     @Override

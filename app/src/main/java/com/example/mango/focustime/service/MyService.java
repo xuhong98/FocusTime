@@ -17,12 +17,14 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.mango.focustime.Activity.FocusModeActivity;
+import com.example.mango.focustime.PreferenceUtilities;
 import com.example.mango.focustime.R;
 import com.example.mango.focustime.processutil.Features;
 import com.example.mango.focustime.receiver.MyReceiver;
 import com.example.mango.focustime.processutil.BackgroundUtil;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import static com.example.mango.focustime.R.drawable.calendar;
 
@@ -43,9 +45,8 @@ public class MyService extends Service {
     private BroadcastReceiver mScreenOffReceiver;
     private ActivityManager am;
 
-    private static ArrayList<String> blackListApps = new ArrayList<>();
-
     private PackageManager mPackageManager = null;
+    private Set<String> blacklistApps;
 
 
     @Override
@@ -61,6 +62,8 @@ public class MyService extends Service {
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         //startNotification();
+
+        blacklistApps = PreferenceUtilities.getBlacklistApps(getBaseContext());
     }
 
     @Override
@@ -123,8 +126,8 @@ public class MyService extends Service {
 
 
     private boolean isKillableApp(String currentForegroundPackageName) {
-        for (int i = 0; i < blackListApps.size(); i++) {
-            if (blackListApps.get(i).equals(currentForegroundPackageName)) {
+        for (int i = 0; i < blacklistApps.size(); i++) {
+            if (blacklistApps.contains(currentForegroundPackageName)) {
                 Log.v(currentForegroundPackageName, "is killable");
                 return true;
             }
@@ -154,23 +157,6 @@ public class MyService extends Service {
         }
     }
 
-    public static void changeBlacklistApps(String packagename, boolean inBlacklist) {
-        if (inBlacklist) {
-            addBlacklistApps(packagename);
-        } else {
-            removeBlacklistApps(packagename);
-        }
-    }
-
-    private static void addBlacklistApps(String packagename) {
-        Log.v("MyService", "Add " + packagename);
-        blackListApps.add(packagename);
-    }
-
-    private static void removeBlacklistApps(String packagename) {
-        Log.v("MyService", "remove " + packagename);
-        blackListApps.remove(packagename);
-    }
 
 
 }
