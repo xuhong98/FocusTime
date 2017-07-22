@@ -284,18 +284,19 @@ public class StartButtonListener implements View.OnClickListener {
                     .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(context, R.string.click_access, Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             // 引导至辅助功能设置页面
                             activity.startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
                         }
-                    })
-                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
                     });
+//                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//
+//                        }
+//                    });
             noPermissionDialog.show();
         } else {
             return;

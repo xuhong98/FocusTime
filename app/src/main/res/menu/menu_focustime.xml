@@ -22,6 +22,11 @@
         app:showAsAction="always" />
 
     <item
+    android:id="@+id/whitelist"
+    android:title="@string/whitelist"
+    app:showAsAction="never" />
+
+    <item
         android:id="@+id/settings"
         android:title="@string/settings"
         app:showAsAction="never" />

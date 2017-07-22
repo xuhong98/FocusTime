@@ -11,6 +11,7 @@ import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.EditTextPreference;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceCategory;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
 import android.util.Log;
@@ -24,7 +25,6 @@ import com.example.mango.focustime.service.MyService;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
 import static android.content.Context.ALARM_SERVICE;
 
 /**

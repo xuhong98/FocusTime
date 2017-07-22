@@ -56,7 +56,13 @@
     <string name="title">标题</string>
     <string name="todo">任务清单</string>
     <string name="total_time_summary"><xliff:g example="10" id="days">%s</xliff:g>天, <xliff:g example="10" id="hour">%s</xliff:g>时, <xliff:g example="10" id="min">%s</xliff:g>分, <xliff:g example="10" id="sec">%s</xliff:g>秒.</string>
-    <string name="you_have_alr_focused">总计专注时间</string>
+    <string name="you_have_alr_focused">累计专注时间</string>
     <string name="your_dream_futher">离梦想又远了吗？赶紧努力追赶吧！</string>
     <string name="pref_motto_key" translatable="false"></string>
+    <string name="sec_hint">秒</string>
+    <string name="min_hint">分</string>
+    <string name="pref_motto_default" translatable="false">寸金难买寸光阴</string>
+    <string name="pref_app_you_want_key"></string>
+    <string name="click_access">请点击FocusTime</string>
+    <string name="pref_phone_key" translatable="false"></string>
 </resources>

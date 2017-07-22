@@ -20,37 +20,4 @@
         android:icon="@drawable/pen"/>
     </PreferenceCategory>
 
-
-    <PreferenceCategory android:title="@string/pref_category_usable_apps_title">
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/pref_phone_key"
-            android:title="@string/pref_phone_label"
-            android:icon="@drawable/phone"
-            android:summaryOff="@string/pref_off"
-            android:summaryOn="@string/pref_on"/>
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/pref_cal_key"
-            android:title="@string/pref_cal_label"
-            android:icon="@drawable/calculator"
-            android:summaryOff="@string/pref_off"
-            android:summaryOn="@string/pref_on"/>
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/pref_camera_key"
-            android:title="@string/pref_camera_label"
-            android:icon="@drawable/camera"
-            android:summaryOff="@string/pref_off"
-            android:summaryOn="@string/pref_on"/>
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/pref_calendar_key"
-            android:title="@string/pref_calendar_label"
-            android:icon="@drawable/calendar"
-            android:summaryOff="@string/pref_off"
-            android:summaryOn="@string/pref_on"/>
-    </PreferenceCategory>
-
-
 </PreferenceScreen>

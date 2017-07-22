@@ -37,11 +37,11 @@ public class MyApplication extends Application {
     }
 
     public static void activityDestroy(Context context) {
-        if (StartButtonListener.FocusModeStarted()) {
-            PreferenceUtilities.setForceQuit(context, true);
-            Log.v("MyApplication", "set force quit true");
-        }
-        Log.v("MyApplication", "set force quit true");
+//        if (StartButtonListener.FocusModeStarted()) {
+//            PreferenceUtilities.setForceQuit(context, true);
+//            Log.v("MyApplication", "set force quit true");
+//        }
+//        Log.v("MyApplication", "set force quit true");
     }
 
 

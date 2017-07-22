@@ -37,7 +37,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:hint="MIN"
+                        android:hint="@string/min_hint"
                         android:inputType="number"
                         android:textColor="@drawable/edit_text_selector"
                         android:textSize="65dp" />
@@ -54,7 +54,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:hint="SEC"
+                        android:hint="@string/sec_hint"
                         android:inputType="number"
                         android:textColor="@drawable/edit_text_selector"
                         android:textSize="65dp" />
@@ -116,24 +116,24 @@
 
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/btn_alarm_set"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#00000100"
-        android:text="设置提醒"
-        android:textColor="#4d4d4d"
-        android:textSize="20dp" />
+    <!--<Button-->
+        <!--android:id="@+id/btn_alarm_set"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="#00000100"-->
+        <!--android:text="设置提醒"-->
+        <!--android:textColor="#4d4d4d"-->
+        <!--android:textSize="20dp" />-->
 
-    <Button
-        android:id="@+id/btn_alarm_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#00000100"
-        android:text="取消提醒"
-        android:textColor="#4d4d4d"
-        android:textSize="20dp"
-        android:layout_below="@+id/btn_alarm_set"/>
+    <!--<Button-->
+        <!--android:id="@+id/btn_alarm_cancel"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="#00000100"-->
+        <!--android:text="取消提醒"-->
+        <!--android:textColor="#4d4d4d"-->
+        <!--android:textSize="20dp"-->
+        <!--android:layout_below="@+id/btn_alarm_set"/>-->
 
 
 </RelativeLayout>

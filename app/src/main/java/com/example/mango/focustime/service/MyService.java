@@ -41,15 +41,12 @@ public class MyService extends Service {
     private NotificationManager mNotificationManager;
     private static final int NOTICATION_ID = 0x1;
     private BroadcastReceiver mScreenOffReceiver;
+    private ActivityManager am;
 
-    private ArrayList<String> usableApps = new ArrayList<>();
+    private static ArrayList<String> usableApps = new ArrayList<>();
+    private ArrayList<String> usableKeywords = new ArrayList<>();
 
     private PackageManager mPackageManager = null;
-
-    private static boolean phoneUsable;
-    private static boolean cameraUsable;
-    private static boolean calculatorUsable;
-    private static boolean calendarUsable;
 
 
     @Override
@@ -63,8 +60,9 @@ public class MyService extends Service {
         Log.d("MyService", "Service onCreate()");
         mContext = this;
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         startNotification();
-        setUsableApps();
+        setUsableAppsAndKeyWords();
     }
 
     @Override
@@ -117,55 +115,46 @@ public class MyService extends Service {
     }
 
     private void updateNotification() {
-        mBuilder.setContentTitle("App处于" + ": " + DetectionService.getForegroundPackageName());
-        mBuilder.setContentText("...");
-        notification = mBuilder.build();
-        mNotificationManager.notify(NOTICATION_ID, notification);
+        if (!DetectionService.getForegroundPackageName().equals("com.android.systemui")) {
+            mBuilder.setContentTitle("App处于" + ": " + DetectionService.getForegroundPackageName());
+            mBuilder.setContentText("...");
+            notification = mBuilder.build();
+            mNotificationManager.notify(NOTICATION_ID, notification);
+        }
     }
 
-    private void setUsableApps() {
+    private void setUsableAppsAndKeyWords() {
         usableApps.add("com.android.systemui");
-        usableApps.add("com.android.launcher3");
         usableApps.add("com.android.settings");
-        usableApps.add("com.android.inputmethod.latin");
+
+        usableKeywords.add("input");
+        usableKeywords.add("launcher");
     }
 
-    private boolean isKillableApp(String name) {
+    private boolean isKillableApp(String currentForegroundPackageName) {
         for (int i = 0; i < usableApps.size(); i++) {
-            if (usableApps.get(i).equals(name)) {
-                Log.v(name, "is not killable");
+            if (usableApps.get(i).equals(currentForegroundPackageName)) {
+                Log.v(currentForegroundPackageName, "is not killable");
                 return false;
             }
         }
-        Log.v(name, "is killable");
+
+        for (int i = 0; i < usableKeywords.size(); i++) {
+            if (currentForegroundPackageName.contains(usableKeywords.get(i))) {
+                Log.v(currentForegroundPackageName, "is not killable");
+                return false;
+            }
+        }
+
+        Log.v(currentForegroundPackageName, "is killable");
         return true;
     }
 
 
     private void killApps() {
-        ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         String currentForegroundPackageName = DetectionService.getForegroundPackageName();
 
-        Log.v("Phone usable ", "" + phoneUsable);
-        Log.v("Camera usable ", "" + cameraUsable);
-        Log.v("Calculator usable ", "" + calculatorUsable);
-        Log.v("Calendar usable ", "" + calendarUsable);
-
         if (currentForegroundPackageName != null && isKillableApp(currentForegroundPackageName)) {
-
-            if (phoneUsable && isPhone(currentForegroundPackageName)) {
-                Toast.makeText(getApplicationContext(), R.string.phone_allow, Toast.LENGTH_SHORT).show();
-                Log.v(currentForegroundPackageName, "Phone is usable");
-            } else if (calculatorUsable && isCalculator(currentForegroundPackageName)) {
-                Toast.makeText(getApplicationContext(), R.string.cal_allow, Toast.LENGTH_SHORT).show();
-                Log.v(currentForegroundPackageName, "calculator is usable");
-            } else if (cameraUsable && isCamera(currentForegroundPackageName)) {
-                Toast.makeText(getApplicationContext(), R.string.camera_allow, Toast.LENGTH_SHORT).show();
-                Log.v(currentForegroundPackageName, "camera is usable");
-            } else if (calendarUsable && isCalendar(currentForegroundPackageName)) {
-                Toast.makeText(getApplicationContext(), R.string.calen_allow, Toast.LENGTH_SHORT).show();
-                Log.v(currentForegroundPackageName, "calendar is usable");
-            } else {
 
                 Log.v("MyService", "Killing " + currentForegroundPackageName);
 
@@ -177,41 +166,28 @@ public class MyService extends Service {
                 am.killBackgroundProcesses(currentForegroundPackageName);
 
                 Toast.makeText(getApplicationContext(), R.string.cannot_open_app, Toast.LENGTH_SHORT).show();
-            }
         } else {
             Log.v("MyService", "Not killing " + currentForegroundPackageName);
         }
     }
 
-    private boolean isPhone(String packageName) {
-        return packageName.toLowerCase().contains("dialer");
+    public static void changeUsableApps(String packagename, boolean usable) {
+        if (usable) {
+            addUsableApps(packagename);
+        } else {
+            removeUsableApps(packagename);
+        }
     }
 
-    private boolean isCamera(String packageName) {
-        return packageName.toLowerCase().contains("camera");
+    private static void addUsableApps(String packagename) {
+        Log.v("MyService", "Add " + packagename);
+        usableApps.add(packagename);
     }
 
-    private boolean isCalendar(String packageName) {
-        return packageName.toLowerCase().contains("calendar");
+    private static void removeUsableApps(String packagename) {
+        Log.v("MyService", "remove " + packagename);
+        usableApps.remove(packagename);
     }
 
-    private boolean isCalculator(String packageName) {
-        return packageName.toLowerCase().contains("calculator");
-    }
 
-    public static void setPhoneUsable(boolean phUsable) {
-        phoneUsable = phUsable;
-    }
-
-    public static void setCameraUsable(boolean cameUsable) {
-        cameraUsable = cameUsable;
-    }
-
-    public static void setCalculatorUsable(boolean calculUsable) {
-        calculatorUsable = calculUsable;
-    }
-
-    public static void setCalendarUsable(boolean calenUsable) {
-        calendarUsable = calenUsable;
-    }
 }

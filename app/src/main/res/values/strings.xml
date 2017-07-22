@@ -12,29 +12,13 @@
     <string name="pref_motto_key" translatable="false">motto_key</string>
 
     <!-- Default for size preference -->
-    <string name="pref_motto_default" translatable="false">One today is worth two tomorrows.</string>
+    <string name="pref_motto_default">One today is worth two tomorrows.</string>
 
     <string name="alarm_goes_off" translatable="false">Alarm goes off</string>
 
     <string name="pref_category_usable_apps_title">apps that you want to use during FocusTime</string>
 
     <string name="pref_category_motto_title">motto</string>
-
-    <string name="pref_camera_label">Camera</string>
-
-    <string name="pref_camera_key" translatable="false">camera_key</string>
-
-    <string name="pref_cal_label">Calculator</string>
-
-    <string name="pref_cal_key" translatable="false">cal_key</string>
-
-    <string name="pref_phone_label">Phone</string>
-
-    <string name="pref_phone_key" translatable="false">phone_key</string>
-
-    <string name="pref_calendar_label">Calendar</string>
-
-    <string name="pref_calendar_key" translatable="false">calendar_key</string>
 
     <string name="pref_on">on</string>
     <string name="pref_off">off</string>
@@ -75,10 +59,6 @@
     <string name="ok">OK</string>
     <string name="accessibility">Accessibility service</string>
     <string name="please_open_access">Please open accessibility service in Settings-Accessibility-FocusTime</string>
-    <string name="phone_allow">Phone is allowed in FocusMode</string>
-    <string name="camera_allow">Camera is allowed in FocusMode</string>
-    <string name="calen_allow">Calendar is allowed in FocusMode</string>
-    <string name="cal_allow">Calculator is allowed in FocusMode</string>
     <string name="cannot_open_app">This app is not allowed in FocusMode</string>
     <string name="add_todo">Add new todo</string>
     <string name="edit_todo">Edit todo</string>
@@ -92,4 +72,10 @@
     <string name="delete_all">Delete all entries?</string>
     <string name="set_motto_suc">Set motto successfully</string>
     <string name="total_time_summary"><xliff:g example="10" id="days">%s</xliff:g>days, <xliff:g example="10" id="hour">%s</xliff:g>hour, <xliff:g example="10" id="min">%s</xliff:g>min, <xliff:g example="10" id="sec">%s</xliff:g>sec.</string>
+    <string name="min_hint">MIN</string>
+    <string name="sec_hint">SEC</string>
+    <string name="select_usable_apps">Select usable apps</string>
+    <string name="whitelist">Whitelisted apps</string>
+    <string name="pref_app_you_want_key" translatable="false">app_you_want_key</string>
+    <string name="click_access">Please click on FocusTime</string>
 </resources>

@@ -57,8 +57,12 @@
 
         <receiver android:name=".receiver.MyReceiver" />
 
-        <activity android:name=".Activity.SettingsActivity"
+        <activity
+            android:name=".Activity.SettingsActivity"
             android:label="@string/settings"
+            android:parentActivityName=".Activity.FocusModeActivity" />
+        <activity android:name=".Activity.WhiteListActivity"
+            android:label="@string/whitelist"
             android:parentActivityName=".Activity.FocusModeActivity"></activity>
     </application>
 
