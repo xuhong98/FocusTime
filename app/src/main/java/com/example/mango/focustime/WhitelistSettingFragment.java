@@ -47,6 +47,7 @@ public class WhitelistSettingFragment extends PreferenceFragmentCompat implement
     private PreferenceCategory preferenceCategory;
     private PackageManager pm;
     private List<ApplicationInfo> apps;
+    private ArrayList<String> socialMediaAppsName;
 
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
@@ -58,6 +59,8 @@ public class WhitelistSettingFragment extends PreferenceFragmentCompat implement
 
         preferenceCategory = (PreferenceCategory) findPreference(getString(R.string.pref_app_you_want_key));
 
+        setUpSocialMediaAppsName();
+
         setUpAllApps();
 
     }
@@ -67,8 +70,9 @@ public class WhitelistSettingFragment extends PreferenceFragmentCompat implement
         pm = getActivity().getPackageManager();
         apps = pm.getInstalledApplications(0);
         for (ApplicationInfo app : apps) {
-            if ((app.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0 || (app.flags & ApplicationInfo.FLAG_SYSTEM) == 0)
-            {
+            if (((app.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0 || (app.flags & ApplicationInfo.FLAG_SYSTEM) == 0
+                    || isSocialMediaApps(app)) && !isFocusTime(app) ) {
+                //retrieveAppInfo(app);
                 String label = (String) pm.getApplicationLabel(app);
                 Drawable icon = pm.getApplicationIcon(app);
                 String packageName = app.packageName;
@@ -86,6 +90,26 @@ public class WhitelistSettingFragment extends PreferenceFragmentCompat implement
         }
     }
 
+    private void setUpSocialMediaAppsName() {
+        socialMediaAppsName = new ArrayList<>();
+        socialMediaAppsName.add("YouTube");
+        socialMediaAppsName.add("Facebook");
+        socialMediaAppsName.add("WhatsApp");
+    }
+
+    private boolean isFocusTime(ApplicationInfo app) {
+        String label = (String) pm.getApplicationLabel(app);
+        return label.equals("FocusTime");
+    }
+
+    private boolean isSocialMediaApps(ApplicationInfo app) {
+        return socialMediaAppsName.contains(label);
+    }
+
+    private void retrieveAppInfo(ApplicationInfo app) {
+
+    }
+
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         return true;
@@ -93,8 +117,12 @@ public class WhitelistSettingFragment extends PreferenceFragmentCompat implement
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        boolean inBlacklist = sharedPreferences.getBoolean(key, false);
-        changeBlacklistApps(key, inBlacklist);
+        Preference preference = findPreference(key);
+        if (preference instanceof CheckBoxPreference) {
+            boolean inBlacklist = sharedPreferences.getBoolean(key, false);
+            changeBlacklistApps(key, inBlacklist);
+        }
+
     }
 
     private void changeBlacklistApps(String key, boolean inBlacklist) {
