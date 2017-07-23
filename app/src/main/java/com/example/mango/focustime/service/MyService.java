@@ -16,17 +16,13 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.mango.focustime.Activity.FocusModeActivity;
-import com.example.mango.focustime.PreferenceUtilities;
+import com.example.mango.focustime.util.PreferenceUtilities;
 import com.example.mango.focustime.R;
 import com.example.mango.focustime.processutil.Features;
 import com.example.mango.focustime.receiver.MyReceiver;
 import com.example.mango.focustime.processutil.BackgroundUtil;
 
-import java.util.ArrayList;
 import java.util.Set;
-
-import static com.example.mango.focustime.R.drawable.calendar;
 
 /**
  * Created by chenxiaoman on 2017/6/13.

@@ -3,6 +3,7 @@
     package="com.example.mango.focustime">
 
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activity.FocusModeActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.PunishmentActivity" />
+        <activity android:name=".Activity.PunishmentActivity"
+            android:label="@string/punishment"/>
         <activity
             android:name=".Activity.ToDoActivity"
             android:label="@string/todo"

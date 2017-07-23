@@ -58,7 +58,7 @@
     <string name="confirm">Confirm</string>
     <string name="ok">OK</string>
     <string name="accessibility">Accessibility service</string>
-    <string name="please_open_access">Please open accessibility service in Settings</string>
+    <string name="please_open_access">Please turn on FocusTime accessibility service in Settings</string>
     <string name="cannot_open_app">This app is not allowed in FocusMode</string>
     <string name="add_todo">Add new todo</string>
     <string name="edit_todo">Edit todo</string>
@@ -77,4 +77,7 @@
     <string name="blacklist">Blacklisted apps</string>
     <string name="pref_app_you_want_key" translatable="false">app_you_want_key</string>
     <string name="click_access">Please click on FocusTime</string>
+    <string name="punishment">Punishment</string>
+    <string name="time_reminder_notification_title">It\'s time to focus!</string>
+    <string name="time_reminder_notification_body">There\'s never a better time to focus than now. Come on!</string>
 </resources>

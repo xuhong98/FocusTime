@@ -1,6 +1,5 @@
-package com.example.mango.focustime;
+package com.example.mango.focustime.util;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -8,8 +7,6 @@ import android.content.SharedPreferences;
  * Created by chenxiaoman on 19/7/17.
  */
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import java.util.HashSet;

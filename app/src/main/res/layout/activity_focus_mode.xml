@@ -116,24 +116,12 @@
 
     </RelativeLayout>
 
-    <!--<Button-->
-        <!--android:id="@+id/btn_alarm_set"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="#00000100"-->
-        <!--android:text="设置提醒"-->
-        <!--android:textColor="#4d4d4d"-->
-        <!--android:textSize="20dp" />-->
-
-    <!--<Button-->
-        <!--android:id="@+id/btn_alarm_cancel"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="#00000100"-->
-        <!--android:text="取消提醒"-->
-        <!--android:textColor="#4d4d4d"-->
-        <!--android:textSize="20dp"-->
-        <!--android:layout_below="@+id/btn_alarm_set"/>-->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="reminder"
+        android:onClick="testNoti"
+        />
 
 
 </RelativeLayout>

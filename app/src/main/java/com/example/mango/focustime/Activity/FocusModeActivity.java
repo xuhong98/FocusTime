@@ -3,7 +3,6 @@ package com.example.mango.focustime.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,12 +10,14 @@ import android.support.v7.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.mango.focustime.PreferenceUtilities;
-import com.example.mango.focustime.WhitelistSettingFragment;
+import com.example.mango.focustime.util.NotificationUtils;
+import com.example.mango.focustime.util.PreferenceUtilities;
+
 import com.example.mango.focustime.processutil.Features;
 import com.example.mango.focustime.service.MyApplication;
 import com.example.mango.focustime.R;
@@ -25,13 +26,9 @@ import com.example.mango.focustime.lineartimer.LinearTimer;
 import com.example.mango.focustime.lineartimer.LinearTimerView;
 import com.example.mango.focustime.service.MyService;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-import static android.os.Build.VERSION_CODES.M;
-
-//import static com.example.mango.focustime.R.id.second;
 
 public class FocusModeActivity extends AppCompatActivity implements LinearTimer.TimerListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -48,7 +45,6 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_focus_mode);
         mContext = this;
-
         TVtotalFocusedTime = (TextView) findViewById(R.id.totalFocusedTime);
 
         linearTimerView = (LinearTimerView) findViewById(R.id.linearTimer);
@@ -203,5 +199,8 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
         TVtotalFocusedTime.setText(record);
     }
 
+    public void testNoti(View v) {
+        NotificationUtils.remindUserBecauseCharging(this);
+    }
 }
 

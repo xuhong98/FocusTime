@@ -1,21 +1,10 @@
 package com.example.mango.focustime.service;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
-
-import com.example.mango.focustime.PreferenceUtilities;
-import com.example.mango.focustime.StartButtonListener;
 
 
 /**

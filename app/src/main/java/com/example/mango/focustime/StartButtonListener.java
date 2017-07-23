@@ -11,7 +11,6 @@ import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
-import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +23,7 @@ import com.example.mango.focustime.processutil.Features;
 import com.example.mango.focustime.service.MyService;
 
 import com.example.mango.focustime.lineartimer.LinearTimer;
-import com.example.mango.focustime.PreferenceUtilities;
+import com.example.mango.focustime.util.PreferenceUtilities;
 
 /**
  * Created by chenxiaoman on 23/6/17.
@@ -63,7 +62,6 @@ public class StartButtonListener implements View.OnClickListener {
         second = (EditText) activity.findViewById(R.id.second);
         minute = (EditText) activity.findViewById(R.id.minute);
         s = (Button) activity.findViewById(R.id.start);
-
 
     }
 
