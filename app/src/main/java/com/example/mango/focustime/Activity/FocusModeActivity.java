@@ -1,6 +1,7 @@
 package com.example.mango.focustime.Activity;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -94,9 +96,9 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
         Intent intent = new Intent(this, DetectSwipeDeleteService.class);
         startService(intent);
 
-
-
-        forceQuitPunish();
+        if (PreferenceUtilities.getForceQuit(mContext)) {
+            forceQuitPunish();
+        }
 
     }
 
@@ -159,8 +161,8 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
         Intent intent2 = new Intent(mContext, DetectSwipeDeleteService.class);
         mContext.stopService(intent2);
 
-            unregisterReceiver(mReceiver);
-            Log.v("FocusModeActivity", "unregisterReceiver");
+        unregisterReceiver(mReceiver);
+        Log.v("FocusModeActivity", "unregisterReceiver");
 
 
         // Unregister VisualizerActivity as an OnPreferenceChangedListener to avoid any memory leaks.
@@ -228,7 +230,7 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
         NotificationUtils.remindUserBecauseCharging(this);
     }
 
-    public LinearTimer getLinearTimer(){
+    public LinearTimer getLinearTimer() {
         return linearTimer;
     }
 
@@ -241,23 +243,32 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
     }
 
     private void forceQuitPunish() {
-        if (PreferenceUtilities.getForceQuit(this)) {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.quited_focusmode);
-            builder.setMessage(R.string.you_have_quit);
-            builder.setNegativeButton(R.string.iam_sorry, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    PreferenceUtilities.setForceQuit(mContext, false);
-                    Intent intent = new Intent(mContext, PunishmentActivity.class);
-                    startActivity(intent);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle(R.string.quited_focusmode);
+        builder.setMessage(R.string.you_have_quit);
+        builder.setNegativeButton(R.string.iam_sorry, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                PreferenceUtilities.setForceQuit(mContext, false);
+                Intent intent = new Intent(mContext, PunishmentActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
+        builder.setOnKeyListener(new Dialog.OnKeyListener() {
+
+            @Override
+            public boolean onKey(DialogInterface arg0, int keyCode,
+                                 KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    forceQuitPunish();
                 }
-            });
+                return true;
+            }
+        });
 
-            // Create and show the AlertDialog
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
-        }
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }
 

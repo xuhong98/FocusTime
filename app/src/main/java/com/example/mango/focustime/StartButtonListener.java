@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.mango.focustime.Activity.FocusModeActivity;
 import com.example.mango.focustime.Activity.PunishmentActivity;
 import com.example.mango.focustime.lineartimer.LinearTimerStates;
 import com.example.mango.focustime.processutil.Features;
