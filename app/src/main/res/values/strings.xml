@@ -20,8 +20,8 @@
 
     <string name="pref_category_motto_title">motto</string>
 
-    <string name="pref_on">on</string>
-    <string name="pref_off">off</string>
+    <string name="pref_on">On</string>
+    <string name="pref_off">Off</string>
 
     <string name="pref_category_reminder">time reminder</string>
 
@@ -76,8 +76,13 @@
     <string name="sec_hint">SEC</string>
     <string name="blacklist">Blacklisted apps</string>
     <string name="pref_app_you_want_key" translatable="false">app_you_want_key</string>
-    <string name="click_access">Please click on FocusTime</string>
+    <string name="click_access">Please click on Service/FocusTime</string>
     <string name="punishment">Punishment</string>
     <string name="time_reminder_notification_title">It\'s time to focus!</string>
     <string name="time_reminder_notification_body">There\'s never a better time to focus than now. Come on!</string>
+    <string name="disable">Disabled</string>
+    <string name="enable">Enabled</string>
+    <string name="iam_sorry">I\'m sorry</string>
+    <string name="quited_focusmode">Quited FocusMode</string>
+    <string name="you_have_quit">You\'ve quited FocusMode last time. You are getting punishment.</string>
 </resources>

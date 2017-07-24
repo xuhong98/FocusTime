@@ -56,8 +56,14 @@
                 android:resource="@xml/detection_service_config" />
         </service>
         <service android:name=".service.MyService" />
+        <service
+            android:enabled="true"
+            android:name=".service.DetectSwipeDeleteService"
+            android:exported="false"
+            android:stopWithTask="false" />
 
         <receiver android:name=".receiver.MyReceiver" />
+        <receiver android:name=".receiver.ScreenReceiver"></receiver>
 
         <activity
             android:name=".Activity.SettingsActivity"

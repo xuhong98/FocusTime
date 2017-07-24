@@ -37,6 +37,7 @@ public class StartButtonListener implements View.OnClickListener {
     protected static Context context;
     protected static Activity activity;
     public static CountDownTimer timer;
+    private BroadcastReceiver mReceiver;
     private static boolean timerStarted = false;
 
     private final EditText second;
@@ -57,17 +58,16 @@ public class StartButtonListener implements View.OnClickListener {
     private boolean serviceStarted;
 
 
-    public StartButtonListener(Context context, Activity activity, LinearTimer linearTimer) {
+    public StartButtonListener(Context context, Activity activity, LinearTimer linearTimer, BroadcastReceiver receiver) {
         this.context = context;
         this.activity = activity;
         this.intent = activity.getIntent();
         this.linearTimer = linearTimer;
+        this.mReceiver = receiver;
 
         second = (EditText) activity.findViewById(R.id.second);
         minute = (EditText) activity.findViewById(R.id.minute);
         s = (Button) activity.findViewById(R.id.start);
-
-        innitializeReveiver();
 
     }
 
@@ -167,10 +167,6 @@ public class StartButtonListener implements View.OnClickListener {
         linearTimer.startTimer((totalSecond - 1) * 1000);
         timerStarted = true;
 
-
-        // Start detection service
-        Features.showForeground = true;
-        Intent intent = new Intent(context, MyService.class);
         startService();
 
 
@@ -308,7 +304,7 @@ public class StartButtonListener implements View.OnClickListener {
                             activity.startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
                         }
                     });
-//                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+//                    .setNsegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
 //                        @Override
 //                        public void onClick(DialogInterface dialog, int which) {
 //
@@ -320,11 +316,6 @@ public class StartButtonListener implements View.OnClickListener {
         }
     }
 
-    private void innitializeReveiver() {
-        // INITIALIZE RECEIVER
-        IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
-        filter.addAction(Intent.ACTION_SCREEN_OFF);
-        BroadcastReceiver mReceiver = new ScreenReceiver();
-        context.registerReceiver(mReceiver, filter);
-    }
+
+
 }

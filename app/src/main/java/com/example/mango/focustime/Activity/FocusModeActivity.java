@@ -1,13 +1,18 @@
 package com.example.mango.focustime.Activity;
 
+import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +20,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.mango.focustime.receiver.ScreenReceiver;
+import com.example.mango.focustime.service.DetectSwipeDeleteService;
+import com.example.mango.focustime.service.DetectionService;
 import com.example.mango.focustime.util.NotificationUtils;
 import com.example.mango.focustime.util.PreferenceUtilities;
 
@@ -33,6 +41,7 @@ import java.util.Locale;
 public class FocusModeActivity extends AppCompatActivity implements LinearTimer.TimerListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private Context mContext;
+    private BroadcastReceiver mReceiver;
     private LinearTimerView linearTimerView;
     private static LinearTimer linearTimer;
     private TextView motto;
@@ -56,8 +65,10 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
                 .getCountUpdate(LinearTimer.COUNT_DOWN_TIMER, 1000)
                 .build();
 
+        initializeReveiver();
+
         //start count down timer
-        StartButtonListener listener = new StartButtonListener(FocusModeActivity.this, this, linearTimer);
+        StartButtonListener listener = new StartButtonListener(FocusModeActivity.this, this, linearTimer, mReceiver);
         Button startButton = (Button) findViewById(R.id.start);
         startButton.setOnClickListener(listener);
 
@@ -79,6 +90,13 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
 //        linearTimerView.setCircleRadiusInDp(width / 7);
 
         setupSharedPreferences();
+
+        Intent intent = new Intent(this, DetectSwipeDeleteService.class);
+        startService(intent);
+
+
+
+        forceQuitPunish();
 
     }
 
@@ -137,6 +155,13 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
         Features.showForeground = false;
         Intent intent = new Intent(mContext, MyService.class);
         mContext.stopService(intent);
+
+        Intent intent2 = new Intent(mContext, DetectSwipeDeleteService.class);
+        mContext.stopService(intent2);
+
+            unregisterReceiver(mReceiver);
+            Log.v("FocusModeActivity", "unregisterReceiver");
+
 
         // Unregister VisualizerActivity as an OnPreferenceChangedListener to avoid any memory leaks.
         PreferenceManager.getDefaultSharedPreferences(this)
@@ -205,6 +230,34 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
 
     public LinearTimer getLinearTimer(){
         return linearTimer;
+    }
+
+    private void initializeReveiver() {
+        // INITIALIZE RECEIVER
+        IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+        filter.addAction(Intent.ACTION_SCREEN_OFF);
+        mReceiver = new ScreenReceiver();
+        registerReceiver(mReceiver, filter);
+    }
+
+    private void forceQuitPunish() {
+        if (PreferenceUtilities.getForceQuit(this)) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.quited_focusmode);
+            builder.setMessage(R.string.you_have_quit);
+            builder.setNegativeButton(R.string.iam_sorry, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    PreferenceUtilities.setForceQuit(mContext, false);
+                    Intent intent = new Intent(mContext, PunishmentActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            // Create and show the AlertDialog
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        }
     }
 }
 

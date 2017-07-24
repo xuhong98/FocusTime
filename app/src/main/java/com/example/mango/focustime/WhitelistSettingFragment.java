@@ -65,8 +65,8 @@ public class WhitelistSettingFragment extends PreferenceFragmentCompat implement
                 CheckBoxPreference checkBoxPref = new CheckBoxPreference(getContext());
                 checkBoxPref.setTitle(label);
                 checkBoxPref.setKey(packageName);
-                checkBoxPref.setSummaryOn(R.string.pref_on);
-                checkBoxPref.setSummaryOff(R.string.pref_off);
+                checkBoxPref.setSummaryOn(R.string.disable);
+                checkBoxPref.setSummaryOff(R.string.enable);
                 checkBoxPref.setIcon(icon);
                 checkBoxPref.setChecked(false);
 

@@ -56,4 +56,6 @@
     <string name="pref_category_blacklist_apps_title">选择专注模式下暂停使用的软件</string>
     <string name="blacklist">应用黑名单</string>
     <string name="punishment">惩罚</string>
+    <string name="disable">停用</string>
+    <string name="enable">正常</string>
 </resources>
