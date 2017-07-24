@@ -52,7 +52,7 @@
     <string name="please_enter_time">Please enter the time</string>
     <string name="invalid_number">Invalid number</string>
     <string name="relax">FocusMode ended. Relax for a while!</string>
-    <string name="mode_started">FocusMode started!</string>
+    <string name="mode_started">You are in FocusMode now!</string>
     <string name="quit_mode">Quitting FocusMode</string>
     <string name="sure_to_quit">You will get punished. Are you sure to quit it?</string>
     <string name="confirm">Confirm</string>

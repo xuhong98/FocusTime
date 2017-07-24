@@ -34,7 +34,7 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
 
     private Context mContext;
     private LinearTimerView linearTimerView;
-    private LinearTimer linearTimer;
+    private static LinearTimer linearTimer;
     private TextView motto;
     private SharedPreferences sharedPreferences;
     private Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
@@ -73,10 +73,10 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
 
         motto = (TextView) findViewById(R.id.motto);
 
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int width = displayMetrics.widthPixels;
-        linearTimerView.setCircleRadiusInDp(width / 7);
+//        DisplayMetrics displayMetrics = new DisplayMetrics();
+//        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//        int width = displayMetrics.widthPixels;
+//        linearTimerView.setCircleRadiusInDp(width / 7);
 
         setupSharedPreferences();
 
@@ -201,6 +201,10 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
 
     public void testNoti(View v) {
         NotificationUtils.remindUserBecauseCharging(this);
+    }
+
+    public LinearTimer getLinearTimer(){
+        return linearTimer;
     }
 }
 

@@ -77,7 +77,7 @@
                 android:layout_centerHorizontal="true"
                 timer:initialColor="@color/colorSecondaryDark"
                 timer:progressColor="@color/colorSecondaryLigit"
-                timer:radius="80dp"
+                timer:radius="85dp"
                 timer:startingPoint="270"
                 timer:strokeWidth="2dp" />
 
@@ -116,12 +116,12 @@
 
     </RelativeLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="reminder"
-        android:onClick="testNoti"
-        />
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="reminder"-->
+        <!--android:onClick="testNoti"-->
+        <!--/>-->
 
 
 </RelativeLayout>

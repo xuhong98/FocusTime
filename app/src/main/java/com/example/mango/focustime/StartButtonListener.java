@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.provider.Settings;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import com.example.mango.focustime.Activity.PunishmentActivity;
 import com.example.mango.focustime.lineartimer.LinearTimerStates;
 import com.example.mango.focustime.processutil.Features;
+import com.example.mango.focustime.receiver.ScreenReceiver;
 import com.example.mango.focustime.service.MyService;
 
 import com.example.mango.focustime.lineartimer.LinearTimer;
@@ -51,6 +54,7 @@ public class StartButtonListener implements View.OnClickListener {
     private SharedPreferences sharedPreferences;
     private long secondLeft;
     private long totalSecondPassed;
+    private boolean serviceStarted;
 
 
     public StartButtonListener(Context context, Activity activity, LinearTimer linearTimer) {
@@ -62,6 +66,8 @@ public class StartButtonListener implements View.OnClickListener {
         second = (EditText) activity.findViewById(R.id.second);
         minute = (EditText) activity.findViewById(R.id.minute);
         s = (Button) activity.findViewById(R.id.start);
+
+        innitializeReveiver();
 
     }
 
@@ -138,6 +144,13 @@ public class StartButtonListener implements View.OnClickListener {
 
                 minute.setText(M);
                 second.setText(S);
+                if(!ScreenReceiver.wasScreenOn && serviceStarted) {
+                    Log.v("StartButtonListener", "stopService");
+                    stopService();
+                } else if (ScreenReceiver.wasScreenOn && !serviceStarted) {
+                    Log.v("StartButtonListener", "startService");
+                    startService();
+                }
             }
 
             public void onFinish() {
@@ -174,6 +187,7 @@ public class StartButtonListener implements View.OnClickListener {
     }
 
     private void startService() {
+        serviceStarted = true;
         Features.showForeground = true;
         Intent intent = new Intent(context, MyService.class);
         context.startService(intent);
@@ -213,9 +227,9 @@ public class StartButtonListener implements View.OnClickListener {
         timer.cancel();
         if (linearTimer.getState().equals(LinearTimerStates.ACTIVE)) {
             linearTimer.pauseTimer();
+        } else if (!linearTimer.getState().equals(LinearTimerStates.INITIALIZED)) {
+            linearTimer.resetTimer();
         }
-
-        linearTimer.resetTimer();
 
         timerStarted = false;
         s.setText(R.string.start_button);
@@ -228,12 +242,17 @@ public class StartButtonListener implements View.OnClickListener {
         minute.setText("");
         second.setText("");
 
+        stopService();
+
+        storeTotalSecondsPassed();
+    }
+
+    private void stopService() {
         // Stop detection service
+        serviceStarted = false;
         Features.showForeground = false;
         Intent i = new Intent(context, MyService.class);
         context.stopService(i);
-
-        storeTotalSecondsPassed();
     }
 
     private void countTotalSecondsPassed() {
@@ -299,5 +318,13 @@ public class StartButtonListener implements View.OnClickListener {
         } else {
             return;
         }
+    }
+
+    private void innitializeReveiver() {
+        // INITIALIZE RECEIVER
+        IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+        filter.addAction(Intent.ACTION_SCREEN_OFF);
+        BroadcastReceiver mReceiver = new ScreenReceiver();
+        context.registerReceiver(mReceiver, filter);
     }
 }
