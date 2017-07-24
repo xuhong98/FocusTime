@@ -79,7 +79,7 @@
                 timer:progressColor="@color/colorSecondaryLigit"
                 timer:radius="85dp"
                 timer:startingPoint="270"
-                timer:strokeWidth="2dp" />
+                timer:strokeWidth="3dp" />
 
         </RelativeLayout>
 

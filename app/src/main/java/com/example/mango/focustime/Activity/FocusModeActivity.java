@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mango.focustime.receiver.ScreenReceiver;
 import com.example.mango.focustime.service.DetectSwipeDeleteService;
@@ -93,6 +95,8 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
 
         setupSharedPreferences();
 
+        setUpTimerRadius();
+
         Intent intent = new Intent(this, DetectSwipeDeleteService.class);
         startService(intent);
 
@@ -100,6 +104,17 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
             forceQuitPunish();
         }
 
+    }
+
+    private void setUpTimerRadius() {
+        Display display = getWindowManager().getDefaultDisplay();
+        DisplayMetrics outMetrics = new DisplayMetrics ();
+        display.getMetrics(outMetrics);
+
+        float density  = getResources().getDisplayMetrics().density;
+        float dpHeight = outMetrics.heightPixels / density;
+        float dpWidth  = outMetrics.widthPixels / density;
+        linearTimerView.setCircleRadiusInDp((int) (dpWidth * 0.42));
     }
 
     @Override
@@ -127,8 +142,12 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
                 startActivity(intent3);
                 return true;
             case R.id.whitelist:
-                Intent intent4 = new Intent(FocusModeActivity.this, WhiteListActivity.class);
-                startActivity(intent4);
+                if (StartButtonListener.FocusModeStarted()) {
+                    Toast.makeText(mContext, R.string.cannot_change_blacklist, Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent4 = new Intent(FocusModeActivity.this, WhiteListActivity.class);
+                    startActivity(intent4);
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -201,8 +220,6 @@ public class FocusModeActivity extends AppCompatActivity implements LinearTimer.
         } else if (key.equals(PreferenceUtilities.KEY_TOTAL_SECOND_RECORDED)) {
             updateTotalSecondsRecorded();
         } else if (key.equals(getString(R.string.pref_reminder_key))) {
-
-        } else {
 
         }
     }

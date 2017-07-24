@@ -58,4 +58,10 @@
     <string name="punishment">惩罚</string>
     <string name="disable">停用</string>
     <string name="enable">正常</string>
+    <string name="cannot_change_blacklist">专注模式中无法更改应用黑名单</string>
+    <string name="time_reminder_notification_body">现在是专注时间！加油！</string>
+    <string name="time_reminder_notification_title">专注时间</string>
+    <string name="you_have_quit">你上次使用时在专注时间内强制退出，将接受惩罚。</string>
+    <string name="iam_sorry">我错了</string>
+    <string name="quited_focusmode">退出专注模式</string>
 </resources>
