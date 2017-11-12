@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.mango.focustime;
+package com.example.mango.focustime.Activity;
 
 import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,17 +28,21 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.mango.focustime.R;
 import com.example.mango.focustime.data.TodoContract.TodoEntry;
+import com.example.mango.focustime.service.MyApplication;
 
 /**
  * Allows user to create a new to_do item or edit an existing one.
@@ -45,7 +50,7 @@ import com.example.mango.focustime.data.TodoContract.TodoEntry;
 public class EditorActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    /** Identifier for the pet data loader */
+    /** Identifier for the to_do data loader */
     private static final int EXISTING_TODO_LOADER = 0;
 
     /** EditText field to enter the title */
@@ -54,7 +59,10 @@ public class EditorActivity extends AppCompatActivity implements
     /** EditText field to enter the description */
     private EditText mDesEditText;
 
-    /** Content URI for the existing pet (null if it's a new pet) */
+    /** CheckBox field to check done */
+    private CheckBox mCheckBox;
+
+    /** Content URI for the existing to_do (null if it's a new to_do) */
     private Uri mCurrentPetUri;
 
     @Override
@@ -71,55 +79,30 @@ public class EditorActivity extends AppCompatActivity implements
         mTitleEditText = (EditText) findViewById(R.id.edit_title);
         mDesEditText = (EditText) findViewById(R.id.edit_description);
 
+        final LayoutInflater factory = getLayoutInflater();
+
+        final View listItemView = factory.inflate(R.layout.list_item, null);
+
+        mCheckBox = (CheckBox) listItemView.findViewById(R.id.checkbox);
+
         // If the intent DOES NOT contain a pet content URI, then we know that we are
         // creating a new pet.
         if (mCurrentPetUri == null) {
             // This is a new pet, so change the app bar to say "Add a Pet"
-            setTitle("Add new todo");
+            setTitle(R.string.add_todo);
 
             // Invalidate the options menu, so the "Delete" menu option can be hidden.
             // (It doesn't make sense to delete a pet that hasn't been created yet.)
             invalidateOptionsMenu();
         } else {
             // Otherwise this is an existing pet, so change app bar to say "Edit Pet"
-            setTitle("Edit todo");
+            setTitle(R.string.edit_todo);
 
             // Initialize a loader to read the pet data from the database
             // and display the current values in the editor
             getLoaderManager().initLoader(EXISTING_TODO_LOADER, null, this);
         }
 
-    }
-
-
-    /**
-     * Get user input from editor and save new pet into database.
-     */
-    private void insertTodo() {
-        // Read from input fields
-        // Use trim to eliminate leading or trailing white space
-        String nameString = mTitleEditText.getText().toString().trim();
-        String breedString = mDesEditText.getText().toString().trim();
-
-        // Create a ContentValues object where column names are the keys,
-        // and pet attributes from the editor are the values.
-        ContentValues values = new ContentValues();
-        values.put(TodoEntry.COLUMN_TITLE, nameString);
-        values.put(TodoEntry.COLUMN_DESCRIPTION, breedString);
-
-        // Insert a new pet into the provider, returning the content URI for the new pet.
-        Uri newUri = getContentResolver().insert(TodoEntry.CONTENT_URI, values);
-
-        // Show a toast message depending on whether or not the insertion was successful
-        if (newUri == null) {
-            // If the new content URI is null, then there was an error with insertion.
-            Toast.makeText(this, "Insert failed",
-                    Toast.LENGTH_SHORT).show();
-        } else {
-            // Otherwise, the insertion was successful and we can display a toast.
-            Toast.makeText(this, "Insert successful",
-                    Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
@@ -180,16 +163,19 @@ public class EditorActivity extends AppCompatActivity implements
         if (mCurrentPetUri == null) {
             // This is a NEW pet, so insert a new pet into the provider,
             // returning the content URI for the new pet.
+
+            values.put(TodoEntry.COLUMN_DONE, TodoEntry.UNCHECKED);
+
             Uri newUri = getContentResolver().insert(TodoEntry.CONTENT_URI, values);
 
             // Show a toast message depending on whether or not the insertion was successful.
             if (newUri == null) {
                 // If the new content URI is null, then there was an error with insertion.
-                Toast.makeText(this, "Insert pet failed",
+                Toast.makeText(this, R.string.insert_fail,
                         Toast.LENGTH_SHORT).show();
             } else {
                 // Otherwise, the insertion was successful and we can display a toast.
-                Toast.makeText(this, "Insert successful",
+                Toast.makeText(this, R.string.insert_suc,
                         Toast.LENGTH_SHORT).show();
             }
         } else {
@@ -202,11 +188,11 @@ public class EditorActivity extends AppCompatActivity implements
             // Show a toast message depending on whether or not the update was successful.
             if (rowsAffected == 0) {
                 // If no rows were affected, then there was an error with the update.
-                Toast.makeText(this, "Edit failed",
+                Toast.makeText(this, R.string.edit_fail,
                         Toast.LENGTH_SHORT).show();
             } else {
                 // Otherwise, the update was successful and we can display a toast.
-                Toast.makeText(this, "Edit successful",
+                Toast.makeText(this, R.string.edit_suc,
                         Toast.LENGTH_SHORT).show();
             }
         }
@@ -219,7 +205,8 @@ public class EditorActivity extends AppCompatActivity implements
         String[] projection = {
                 TodoEntry._ID,
                 TodoEntry.COLUMN_TITLE,
-                TodoEntry.COLUMN_DESCRIPTION,};
+                TodoEntry.COLUMN_DESCRIPTION,
+                TodoEntry.COLUMN_DONE};
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
@@ -243,15 +230,21 @@ public class EditorActivity extends AppCompatActivity implements
             // Find the columns of pet attributes that we're interested in
             int titleColumnIndex = cursor.getColumnIndex(TodoEntry.COLUMN_TITLE);
             int descriptionColumnIndex = cursor.getColumnIndex(TodoEntry.COLUMN_DESCRIPTION);
+            int checkColumnIndex = cursor.getColumnIndex(TodoEntry.COLUMN_DONE);
 
             // Extract out the value from the Cursor for the given column index
             String title = cursor.getString(titleColumnIndex);
             String description = cursor.getString(descriptionColumnIndex);
+            String check = cursor.getString(checkColumnIndex);
 
             // Update the views on the screen with the values from the database
             mTitleEditText.setText(title);
             mDesEditText.setText(description);
-
+            if (check.equals(TodoEntry.CHECKED)) {
+                mCheckBox.setChecked(true);
+            } else {
+                mCheckBox.setChecked(false);
+            }
         }
     }
 
@@ -260,6 +253,7 @@ public class EditorActivity extends AppCompatActivity implements
         // If the loader is invalidated, clear out all the data from the input fields.
         mTitleEditText.setText("");
         mDesEditText.setText("");
+        mCheckBox.setChecked(false);
     }
 
     /**
@@ -276,11 +270,11 @@ public class EditorActivity extends AppCompatActivity implements
             // Show a toast message depending on whether or not the delete was successful.
             if (rowsDeleted == 0) {
                 // If no rows were deleted, then there was an error with the delete.
-                Toast.makeText(this, "Delete failed",
+                Toast.makeText(this, R.string.del_fail,
                         Toast.LENGTH_SHORT).show();
             } else {
                 // Otherwise, the delete was successful and we can display a toast.
-                Toast.makeText(this, "Delete successful",
+                Toast.makeText(this, R.string.del_suc,
                         Toast.LENGTH_SHORT).show();
             }
         }
@@ -288,4 +282,35 @@ public class EditorActivity extends AppCompatActivity implements
         // Close the activity
         finish();
     }
+
+    public void deleteTodo(Uri mCurrentPetUri, Context context) {
+        // Only perform the delete if this is an existing pet.
+        if (mCurrentPetUri != null) {
+            // Call the ContentResolver to delete the pet at the given content URI.
+            // Pass in null for the selection and selection args because the mCurrentPetUri
+            // content URI already identifies the pet that we want.
+            int rowsDeleted = context.getContentResolver().delete(mCurrentPetUri, null, null);
+
+            // Show a toast message depending on whether or not the delete was successful.
+            if (rowsDeleted == 0) {
+                // If no rows were deleted, then there was an error with the delete.
+                Toast.makeText(context, R.string.del_fail,
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                // Otherwise, the delete was successful and we can display a toast.
+                Toast.makeText(context, R.string.del_suc,
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        // Close the activity
+        finish();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MyApplication.activityDestroy(this);
+    }
+
 }

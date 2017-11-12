@@ -17,12 +17,7 @@
     tools:context=".CatalogActivity">
 
     <item
-        android:id="@+id/action_insert_dummy_data"
-        android:title="insert_dummy_data"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/action_delete_all_entries"
-        android:title="delete_all_entries"
+        android:title="@string/delete_all_entries"
         app:showAsAction="never" />
 </menu>

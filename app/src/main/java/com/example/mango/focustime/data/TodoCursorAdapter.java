@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.mango.focustime;
+package com.example.mango.focustime.data;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-import com.example.mango.focustime.data.TodoContract;
+import com.example.mango.focustime.R;
 import com.example.mango.focustime.data.TodoContract.TodoEntry;
 
 /**
@@ -74,18 +74,27 @@ public class TodoCursorAdapter extends CursorAdapter {
         // Find individual views that we want to modify in the list item layout
         TextView nameTextView = (TextView) view.findViewById(R.id.name);
         TextView summaryTextView = (TextView) view.findViewById(R.id.summary);
+        CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkbox);
 
-        // Find the columns of pet attributes that we're interested in
+        // Find the columns of item attributes that we're interested in
         int nameColumnIndex = cursor.getColumnIndex(TodoContract.TodoEntry.COLUMN_TITLE);
         int desColumnIndex = cursor.getColumnIndex(TodoContract.TodoEntry.COLUMN_DESCRIPTION);
+        int checkColunmIndex = cursor.getColumnIndex(TodoEntry.COLUMN_DONE);
 
         // Read the pet attributes from the Cursor for the current pet
         String title = cursor.getString(nameColumnIndex);
         String description = cursor.getString(desColumnIndex);
-
+        String check = cursor.getString(checkColunmIndex);
 
         // Update the TextViews with the attributes for the current pet
         nameTextView.setText(title);
         summaryTextView.setText(description);
+        if (check.equals(TodoEntry.CHECKED)) {
+            checkBox.setChecked(true);
+        } else {
+            checkBox.setChecked(false);
+        }
     }
+
+
 }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">FocusTime</string>
+    <string name="a_bit_empty">这里空空如也</string>
+    <string name="a_little_punishment">给半途而废的小小惩罚！</string>
+    <string name="accessibility">辅助功能</string>
+    <string name="add_todo">添加任务</string>
+    <string name="cancel">取消</string>
+    <string name="cannot_exit">别想退出</string>
+    <string name="cannot_open_app">别玩手机啦</string>
+    <string name="confirm">确定</string>
+    <string name="del_fail">删除失败</string>
+    <string name="del_suc">删除成功</string>
+    <string name="delete">删除</string>
+    <string name="delete_all">删除全部任务</string>
+    <string name="delete_all_entries">删除全部任务？</string>
+    <string name="description">详情描述</string>
+    <string name="detection_service_des">此辅助功能用来检测位于前台的软件。为不影响正常使用，请一直保持开启。此功能绝对安全，请放心使用。</string>
+    <string name="edit_fail">编辑失败</string>
+    <string name="edit_suc">编辑成功</string>
+    <string name="edit_todo">编辑</string>
+    <string name="how_to_use">使用指南</string>
+    <string name="insert_fail">添加失败</string>
+    <string name="insert_suc">添加成功</string>
+    <string name="invalid_number">请输入正确时间</string>
+    <string name="mode_started">进入专注模式！</string>
+    <string name="ok">好的</string>
+    <string name="please_enter_time">请输入时长</string>
+    <string name="please_open_access">请打开辅助功能</string>
+    <string name="pref_category_motto_title">座右铭</string>
+    <string name="pref_category_reminder">提醒</string>
+    <string name="pref_motto_label">座右铭</string>
+    <string name="pref_off">关闭</string>
+    <string name="pref_on">开启</string>
+    <string name="pref_reminder_label">设置提醒</string>
+    <string name="quit_mode">中途退出专注模式</string>
+    <string name="relax">专注模式结束。好好休息一下吧！</string>
+    <string name="save">保存</string>
+    <string name="set_motto_suc">座右铭设置成功</string>
+    <string name="settings">设置</string>
+    <string name="start_button">开始</string>
+    <string name="start_todo">快来建任务清单吧</string>
+    <string name="successfully_set_reminder">提醒设置成功</string>
+    <string name="sure_to_quit">退出将接受惩罚，确定？</string>
+    <string name="this_music_not_stop">这个音乐会一直放到它停为止</string>
+    <string name="title">标题</string>
+    <string name="todo">任务清单</string>
+    <string name="total_time_summary"><xliff:g example="10" id="days">%s</xliff:g>天, <xliff:g example="10" id="hour">%s</xliff:g>时, <xliff:g example="10" id="min">%s</xliff:g>分, <xliff:g example="10" id="sec">%s</xliff:g>秒.</string>
+    <string name="you_have_alr_focused">累计专注时间</string>
+    <string name="your_dream_futher">离梦想又远了吗？赶紧努力追赶吧！</string>
+    <string name="sec_hint">SEC</string>
+    <string name="min_hint">MIN</string>
+    <string name="pref_motto_default" translatable="false">寸金难买寸光阴</string>
+    <string name="click_access">请点击FocusTime</string>
+    <string name="pref_phone_key" translatable="false"></string>
+    <string name="pref_category_blacklist_apps_title">选择专注模式下暂停使用的软件</string>
+    <string name="blacklist">应用黑名单</string>
+    <string name="punishment">惩罚</string>
+    <string name="disable">停用</string>
+    <string name="enable">正常</string>
+    <string name="cannot_change_blacklist">专注模式中无法更改应用黑名单</string>
+    <string name="time_reminder_notification_body">现在是专注时间！加油！</string>
+    <string name="time_reminder_notification_title">专注时间</string>
+    <string name="you_have_quit">你上次使用时在专注时间内强制退出，将接受惩罚。</string>
+    <string name="iam_sorry">我错了</string>
+    <string name="quited_focusmode">退出专注模式</string>
+</resources>
