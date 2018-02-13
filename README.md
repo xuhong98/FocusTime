@@ -1,25 +1,11 @@
-= FocusTime
-:toc:
-:toc-title:
-:toc-placement: preamble
-:sectnums:
-:imagesDir: images
-:stylesDir: stylesheets
-ifdef::env-github[]
-:tip-caption: :bulb:
-:note-caption: :information_source:
-endif::[]
-ifdef::env-github,env-browser[:outfilesuffix: .adoc]
+# FocusTime
+## Part 0: Product Overview
+FocusTime is an Android app that helps you avoid distractions of your phone by disabling a list of apps in a time period set by you. You will get punished one-minute-long annoying music if you failed to be focused during that time period. Feeling interested? Explore more on FocusTime <a href="https://www.youtube.com/watch?v=pva4EdHzUVc&t=15s">in one video</a>!
 
-
-== Product Overview
-FocusTime is an Android app that helps you avoid distractions of your phone by disabling a list of apps in a time period set by you. You will get punished one-minute-long annoying music if you failed to be focused during that time period. +
-Feeling interested? Explore more on FocusTime https://www.youtube.com/watch?v=pva4EdHzUVc&t=15s[in one video]! 
-
-== Features
+## Part 1: Features
 image::description.png[width="300"]
 
-=== Blacklisted apps
+### 1.1 Blacklisted apps
 A list of apps will be provided by FocusTime and you can select a list of apps that you don't want to be distrated by. + 
 Then you can set a timer. + 
 When the timer starts, those apps on the blacklist will be disabled. 
@@ -29,7 +15,7 @@ image::list.jpg[width="300"]
 
  However, system pre-installed apps can still function normally even after the timer starts.
 
-=== Punishment
+### 1.2 Punishment
 Once the timer starts, if you want to quit it, you will get a punished by a one-minute-long annoying music.
 
 image::quit.png[width="300"]
@@ -40,7 +26,7 @@ Even if you want to force FocusTime to quit by removing from Recent application 
 
 image::reopen.png[width="300"]
 
-=== Reminder
+### 1.3 Reminder
 
 There is an reminder reminds you to set the blacklisted apps before you start a timer. +
 You can choose to turn it off. +
@@ -51,13 +37,13 @@ And you can turn it on again in the settings.
 
 image::setting.png[width="300"]
 
-=== Motto
+### 1.4 Motto
 
 You can also customize your motto in the settings.
 
 image::setting.png[width="300"]
 
-=== Todos
+### 1.5 Todos
 In FocusTime, you can create a Todo list for managing your work. +
 
 * You can click the plus button to create a new Todo. +
@@ -66,14 +52,14 @@ In FocusTime, you can create a Todo list for managing your work. +
 
 image::todo.png[width="300"]
 
-=== Chinese version 寸金寸光阴
+## Part 3: Chinese version 寸金寸光阴
 
 Both English and Chinese version is supported by FocusTime. The default one is English. +
 FocusTime will automatically adapt to your phone language. If your phone language is not English or Chinese, the English version will be displayed.
 
 image::chinese.png[width="300"]
 
-=== How to use
+## Part 4: How to use
 
 You can always refer to "How to use" page to know how to use FocusTime.
 
