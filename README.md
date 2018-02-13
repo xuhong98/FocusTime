@@ -14,7 +14,7 @@ When the timer starts, those apps on the blacklist will be disabled.
  If you try to open a blacklisted app, FocusTime will force to close it.
 
 <p>
- <img width="350" src="images/list.png">
+ <img width="350" src="images/list.jpg">
 </p>
 
  However, system pre-installed apps can still function normally even after the timer starts.
